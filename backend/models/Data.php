@@ -4,6 +4,9 @@ namespace app\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\db\ActiveRecord;
+use yii\data\ActiveDataProvider;
+use yii\data\SqlDataProvider;
 
 class Data
 {
@@ -188,5 +191,73 @@ class Data
 	        $listData = ArrayHelper::map(Siswa::find()->all(),'nis','nama');
 	        return $listData;
 	}
+        
+        public function sqlLaporanNilaiStock($params)
+        {	
+    		$start = null;
+    		$end = null;    		      
+    		
+    		if(!empty($params['DataLaporan'])){    			
+    			$param = $params['DataLaporan'];
+	    		$query = "	SELECT
+							  b.`kode_barang`,
+							  b.`barcode`,
+							  b.`nama`,  
+							  g.`nama` AS golongan,  
+							  gs.`nama` AS sub_golongan,							  
+							  bt.`nama` AS type_barang,  
+							  b.`jumlah` AS jumlah_stok,
+							  bs.`nama`AS satuan,
+							  b.`harga_beli`,
+							(b.`jumlah` * b.harga_beli) AS total
+							FROM barang b 
+							LEFT JOIN golongan g ON b.`golongan_id`=g.`id`
+							LEFT JOIN golongan_sub gs ON b.`golongan_sub_id`=gs.`id`
+							LEFT JOIN barang_type bt ON b.`barang_type`=bt.`id`
+							LEFT JOIN barang_satuan bs ON b.`satuan_id`=bs.`id`
+							where 
+							b.`kode_barang`='".$param['kode_barang']."' or 
+							b.`barcode`='".$param['barcode']."' or
+							b.`golongan_id`='".$param['golongan_id']."' or 
+							b.`golongan_sub_id`='".$param['golongan_sub_id']."' or 
+							b.`barang_type`='".$param['barang_type']."' or 
+							b.`satuan_id`='".$param['satuan_id']."'";
+				if(!empty($param['nama'])){
+					$query .= "or b.`nama` like '%".$param['nama']."%'";	
+				}
+					$query .= "GROUP BY b.`kode_barang`";
+			}else{
+				$query = "	SELECT
+							  b.`kode_barang`,
+							  b.`barcode`,
+							  b.`nama`,  
+							  g.`nama` AS golongan,  
+							  gs.`nama` AS sub_golongan,							  
+							  bt.`nama` AS type_barang,  
+							  b.`jumlah` AS jumlah_stok,
+							  bs.`nama`AS satuan,
+							  b.`harga_beli`,
+							(b.`jumlah` * b.harga_beli) AS total
+							FROM barang b 
+							LEFT JOIN golongan g ON b.`golongan_id`=g.`id`
+							LEFT JOIN golongan_sub gs ON b.`golongan_sub_id`=gs.`id`
+							LEFT JOIN barang_type bt ON b.`barang_type`=bt.`id`
+							LEFT JOIN barang_satuan bs ON b.`satuan_id`=bs.`id`							
+							GROUP BY b.`kode_barang`";
+			}
+
+			$count = Yii::$app->db->createCommand("SELECT COUNT(kode_barang) FROM barang")->queryScalar();
+			$pg = empty($_GET['p']) ? 40 : 10000;
+			$dataProvider = new SqlDataProvider([
+											    'sql' => $query,
+											    'totalCount' => (int) $count,
+											    'params' => [':start' => $start,':end' => $end ],
+											    'pagination' => [
+											    	'pagesize' => $pg,
+											    ],
+											]);
+
+    		return $dataProvider;
+        }
 
 }
