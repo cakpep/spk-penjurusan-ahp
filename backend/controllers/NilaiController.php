@@ -9,7 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-
+use yii\helpers\Json;
 /**
  * NilaiController implements the CRUD actions for Nilai model.
  */
@@ -47,7 +47,36 @@ class NilaiController extends Controller
         $model = new Nilai();
         $searchModel = new NilaiSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+         // validate if there is a editable input saved via AJAX
+        if (Yii::$app->request->post('hasEditable')) {
+            // instantiate your book model for saving
+            $id = Yii::$app->request->post('editableKey');
+            $model = Nilai::findOne($id);
 
+            // store a default json response as desired by editable
+            $out = Json::encode(['output'=>'', 'message'=>'']);
+            $post = [];
+            $posted = current($_POST['Nilai']);
+            $post['Nilai'] = $posted;
+
+            // load model like any single model validation
+            if ($model->load($post)) {               
+                $model->save();
+                $output = '';                
+                if (isset($posted['nilai'])) {
+                   $output =  $model->nilai;//Yii::$app->formatter->asDecimal($model->nilai, 2);
+                } 
+
+                // similarly you can check if the name attribute was posted as well
+                // if (isset($posted['name'])) {
+                //   $output =  ''; // process as you need
+                // } 
+                $out = Json::encode(['output'=>$output, 'message'=>'']);
+            } 
+            // return ajax json encoded response and exit
+            echo $out;
+            return;
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
