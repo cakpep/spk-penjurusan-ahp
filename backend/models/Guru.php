@@ -61,7 +61,7 @@ class Guru extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'nip' => 'Nip',
+            'nip' => 'NIP',
             'password' => 'Password',
             'nama' => 'Nama',
             'alamat' => 'Alamat',

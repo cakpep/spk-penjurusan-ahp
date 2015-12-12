@@ -39,6 +39,20 @@ use kartik\select2\Select2;
                 ],
             ])->label('Kelas'); ?>            
 
+        <?php 
+                if($model->isNewRecord){
+                    // Normal select with ActiveForm & model
+                    echo $form->field($nilai, 'tahun_ajaran')->widget(Select2::classname(), [
+                        'data' => \app\models\Data::tahun_ajaran(), 
+                        'language' => 'en',
+                        'options' => ['placeholder' => 'Pilih...'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ])->label('Tahun Ajaran'); 
+                }
+            ?>            
+
         </div>
         <div class="col-sm-3">
         <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
@@ -49,15 +63,48 @@ use kartik\select2\Select2;
         </div>
         <div class="col-sm-3">
         <?php //$form->field($model, 'tgl_lahir')->textInput() ?>
-        <?= $form->field($model, 'tgl')->dropDownList(
+        <!-- ?= $form->field($model, 'tgl')->dropDownList(
                                                 \app\models\Data::tgl(), 
-                                                ['prompt'=>'Tanggal...'])->label('Tanggal'); ?>
-        <?= $form->field($model, 'bln')->dropDownList(
+                                                ['prompt'=>'Tanggal...'])->label('Tanggal'); ?> -->
+        <?php 
+            // Normal select with ActiveForm & model
+            echo $form->field($model, 'tgl')->widget(Select2::classname(), [
+                'data' => \app\models\Data::tgl(), 
+                'language' => 'en',
+                'options' => ['placeholder' => 'Pilih Tanggal...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ])->label('Tanggal'); ?>       
+
+        <!-- ?= $form->field($model, 'bln')->dropDownList(
                                                 \app\models\Data::bln(), 
-                                                ['prompt'=>'Bulan...'])->label('Bulan'); ?>
-        <?= $form->field($model, 'thn')->dropDownList(
+                                                ['prompt'=>'Bulan...'])->label('Bulan'); ?> -->
+        <?php 
+            // Normal select with ActiveForm & model
+            echo $form->field($model, 'bln')->widget(Select2::classname(), [
+                'data' => \app\models\Data::bln(), 
+                'language' => 'en',
+                'options' => ['placeholder' => 'Pilih Bulan...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ])->label('Bulan'); ?>      
+
+        <!-- ?= $form->field($model, 'thn')->dropDownList(
                                                 \app\models\Data::thn(1996,10), 
-                                                ['prompt'=>'Tahun...'])->label('Tahun'); ?>
+                                                ['prompt'=>'Tahun...'])->label('Tahun'); ?> -->
+        <?php 
+            // Normal select with ActiveForm & model
+            echo $form->field($model, 'thn')->widget(Select2::classname(), [
+                'data' => \app\models\Data::thn(1995,10), 
+                'language' => 'en',
+                'options' => ['placeholder' => 'Pilih Tahun...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ])->label('Tahun'); ?>     
+        
 
         <?= $form->field($model, 'no_telp')->textInput(['maxlength' => true]) ?>
 
@@ -74,25 +121,13 @@ use kartik\select2\Select2;
         <!-- ?= $form->field($nilai, 'tahun_ajaran')->dropDownList(
                                                 \app\models\Data::tahun_ajaran(), 
                                                 ['prompt'=>'Pilih...'])->label('Tahun Ajaran'); ?> -->
-        <?php 
-                if($model->isNewRecord){
-                    // Normal select with ActiveForm & model
-                    echo $form->field($nilai, 'tahun_ajaran')->widget(Select2::classname(), [
-                        'data' => \app\models\Data::tahun_ajaran(), 
-                        'language' => 'en',
-                        'options' => ['placeholder' => 'Pilih...'],
-                        'pluginOptions' => [
-                            'allowClear' => true
-                        ],
-                    ])->label('Tahun Ajaran'); 
-                }
-            ?>            
+        
 
         </div>
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'PROSES' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

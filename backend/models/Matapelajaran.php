@@ -51,9 +51,9 @@ class Matapelajaran extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getIdJurusan()
+    public function getIdJurus()
     {
-        return $this->hasOne(Jurusan::className(), ['id_jurusan' => 'id_jurusan']);
+        return $this->hasOne(Jurus::className(), ['id_jurusan' => 'id_jurusan']);
     }
 
     /**

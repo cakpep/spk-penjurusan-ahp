@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php echo $this->render('_search', ['model' => $searchModel]); ?>
     
     <p>
-        <?= Html::a('INPUT', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('TAMBAH DATA SISWA', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 <!-- [
     'aa'=>1
@@ -24,68 +24,71 @@ $this->params['breadcrumbs'][] = $this->title;
 array(
     'aa'=>1
 ); -->
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        //'tableOptions' => ['class','table table-striped table-hover'],
-        // 'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <div class="row">
+        <div class="col-sm-12">
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            //'tableOptions' => ['class','table table-striped table-hover'],
+            // 'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 
-            'nis',
-            'password',
-            // 'id_kelas',
-            [
-                    'attribute'=>'id_kelas',
-                    'format' => 'raw',
-                    'value' => function($model){
-                        return $model->idKelas->kelas.'-'.$model->idKelas->sub_kls;
-                    }
-                ],
-            'nama',
-            'email:email',
-            'tempat_lahir',
-            
-            [
-                    'attribute'=>'tgl_lahir',
-                    'format' => 'raw',
-                    'value' => function($model){
-                        return !empty($model->tgl_lahir) ? date('d-M-Y',strtotime($model->tgl_lahir)) : '-';    
-                    }
-                ],
-            'no_telp',
-            [
-                    'attribute'=>'jns_kelamin',
-                    'format' => 'raw',
-                    'value' => function($model){
-                        if($model->jns_kelamin=='L'){
-                            $jenkel = 'Laki-laki';
-                        }elseif ($model->jns_kelamin=='P') {
-                            $jenkel = 'Perempuan';
-                        }else{
-                            $jenkel = '-';
+                'nis',
+                'password',
+                // 'id_kelas',
+                [
+                        'attribute'=>'id_kelas',
+                        'format' => 'raw',
+                        'value' => function($model){
+                            return $model->idKelas->kelas.'-'.$model->idKelas->sub_kls;
                         }
-                            
-                        return $jenkel;
-                    }
-                ],
-            'alamat:ntext',
-             [
-                    'attribute'=>'foto',
-                    'format' => 'html',
-                    'value' => function($model){
-                        $foto = !empty($model->foto) ? $model->foto : 'images.png';
-                        $img = \yii\helpers\Url::to('@web').'/uploads/foto_siswa/'.$foto;
-                        return "<img src='$img' width='100' height='150'>";
+                    ],
+                'nama',
+                'email:email',
+                'tempat_lahir',
+                
+                [
+                        'attribute'=>'tgl_lahir',
+                        'format' => 'raw',
+                        'value' => function($model){
+                            return !empty($model->tgl_lahir) ? date('d-M-Y',strtotime($model->tgl_lahir)) : '-';    
+                        }
+                    ],
+                'no_telp',
+                [
+                        'attribute'=>'jns_kelamin',
+                        'format' => 'raw',
+                        'value' => function($model){
+                            if($model->jns_kelamin=='L'){
+                                $jenkel = 'Laki-laki';
+                            }elseif ($model->jns_kelamin=='P') {
+                                $jenkel = 'Perempuan';
+                            }else{
+                                $jenkel = '-';
+                            }
+                                
+                            return $jenkel;
+                        }
+                    ],
+                'alamat:ntext',
+                 [
+                        'attribute'=>'foto',
+                        'format' => 'html',
+                        'value' => function($model){
+                            $foto = !empty($model->foto) ? $model->foto : 'images.png';
+                            $img = \yii\helpers\Url::to('@web').'/uploads/foto_siswa/'.$foto;
+                            return "<img src='$img' width='100' height='150'>";
 
-                    }
-                ],
+                        }
+                    ],
 
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'header'=>'Actions',
-                'template' => '{update} {delete}',
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    'header'=>'Actions',
+                    'template' => '{update} {delete}',
+                ],
             ],
-        ],
-    ]); ?>
-
+        ]); ?>
+        </div>
+    </div>
 </div>

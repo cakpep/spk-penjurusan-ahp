@@ -20,24 +20,34 @@ $this->params['breadcrumbs'][] = $this->title;
         <!-- ?= Html::a('INPUT', ['create'], ['class' => 'btn btn-success']) ?> -->
     </p>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        //'tableOptions' => ['class','table table-striped table-hover'],
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <div class="row">
+        <div class="col-sm-8">
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            //'tableOptions' => ['class','table table-striped table-hover'],
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'nis',
-            'minat',
-            'psikotes',
+                //'id',
+                'nis',
+                [
+                        'attribute'=>'nama',
+                        'format' => 'raw',
+                        'value' => function($model){
+                            return $model->nisSiswa->nama;
+                        }
+                    ],
+                'minat',
+                'psikotes',
 
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'header'=>'Actions',
-                'template' => '{update} {delete}',
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    'header'=>'Actions',
+                    'template' => '{update} {delete}',
+                ],
             ],
-        ],
-    ]); ?>
-
+        ]); ?>
+        </div>
+    </div>
 </div>

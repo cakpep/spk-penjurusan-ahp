@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'nip',
                 [
                     'attribute'=>'Nama',
-                    'header' => 'Pengampu',
+                    'header' => 'Guru Pengampu',
                     'format' => 'raw',
                     'value' => function($model){
                         return $model->nipGuru->nama;
@@ -58,6 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 [
                     'attribute'=>'subkls',
+                    'header' => 'Sub Kelas',
                     'format' => 'raw',
                     'value' => function($model){
                         $subkls = '';

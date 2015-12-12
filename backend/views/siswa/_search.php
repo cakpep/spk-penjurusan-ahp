@@ -21,7 +21,25 @@ use kartik\select2\Select2;
 
             <!-- ?= $form->field($model, 'password') ?> -->
 
+        </div>
+        <div class="col-sm-4">
             <?= $form->field($model, 'nama') ?>
+            <!-- ?= $form->field($model, 'email') ?> -->
+
+            <!-- ?= $form->field($model, 'tempat_lahir') ?> -->
+
+            <?php //$form->field($model, 'tgl_lahir') ?>
+            <!-- ?= $form->field($model, 'tgl')->dropDownList(
+                                                \app\models\Data::tgl(), 
+                                                ['prompt'=>'Tanggal...'])->label('Tanggal'); ?>
+            ?= $form->field($model, 'bln')->dropDownList(
+                                                \app\models\Data::bln(), 
+                                                ['prompt'=>'Bulan...'])->label('Bulan'); ?>
+            ?= $form->field($model, 'thn')->dropDownList(
+                                                \app\models\Data::thn(1996,10), 
+                                                ['prompt'=>'Tahun...'])->label('Tahun'); ?> -->        
+        </div>
+        <div class="col-sm-4">
             <?php //$form->field($model, 'id_kelas') ?>
             <!-- ?= $form->field($model, 'id_kelas')->dropDownList(
                                                 \app\models\Data::Kelas(), 
@@ -37,24 +55,6 @@ use kartik\select2\Select2;
                     'allowClear' => true
                 ],
             ])->label('Kelas'); ?>       
-        </div>
-        <div class="col-sm-4">
-            <?= $form->field($model, 'email') ?>
-
-            <?= $form->field($model, 'tempat_lahir') ?>
-
-            <?php //$form->field($model, 'tgl_lahir') ?>
-            <!-- ?= $form->field($model, 'tgl')->dropDownList(
-                                                \app\models\Data::tgl(), 
-                                                ['prompt'=>'Tanggal...'])->label('Tanggal'); ?>
-            ?= $form->field($model, 'bln')->dropDownList(
-                                                \app\models\Data::bln(), 
-                                                ['prompt'=>'Bulan...'])->label('Bulan'); ?>
-            ?= $form->field($model, 'thn')->dropDownList(
-                                                \app\models\Data::thn(1996,10), 
-                                                ['prompt'=>'Tahun...'])->label('Tahun'); ?> -->        
-        </div>
-        <div class="col-sm-4">
             <!-- ?php  echo $form->field($model, 'no_telp') ?> -->
 
            <!-- ?= $form->field($model, 'jns_kelamin')->radioList(

@@ -44,22 +44,55 @@ use kartik\select2\Select2;
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
-            ])->label('AGAMA'); ?>            
+            ])->label('Agama'); ?>            
     
         </div>
         <div class="col-sm-3">
         <?= $form->field($model, 'tempat_lahir')->textInput(['maxlength' => true]) ?>
         
         <?php //$form->field($model, 'tgl_lahir')->textInput() ?>
-        <?= $form->field($model, 'tgl')->dropDownList(
+        <!-- ?= $form->field($model, 'tgl')->dropDownList(
                                                 \app\models\Data::tgl(), 
-                                                ['prompt'=>'Tanggal...'])->label('Tanggal'); ?>
-        <?= $form->field($model, 'bln')->dropDownList(
+                                                ['prompt'=>'Tanggal...'])->label('Tanggal'); ?> -->
+        <?php 
+            // Normal select with ActiveForm & model
+            echo $form->field($model, 'tgl')->widget(Select2::classname(), [
+                'data' => \app\models\Data::tgl(), 
+                'language' => 'en',
+                'options' => ['placeholder' => 'Pilih Tanggal...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ])->label('Tanggal'); ?>       
+
+        <!-- ?= $form->field($model, 'bln')->dropDownList(
                                                 \app\models\Data::bln(), 
-                                                ['prompt'=>'Bulan...'])->label('Bulan'); ?>
-        <?= $form->field($model, 'thn')->dropDownList(
-                                                \app\models\Data::thn(1965,25), 
-                                                ['prompt'=>'Tahun...'])->label('Tahun'); ?>        
+                                                ['prompt'=>'Bulan...'])->label('Bulan'); ?> -->
+        <?php 
+            // Normal select with ActiveForm & model
+            echo $form->field($model, 'bln')->widget(Select2::classname(), [
+                'data' => \app\models\Data::bln(), 
+                'language' => 'en',
+                'options' => ['placeholder' => 'Pilih Bulan...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ])->label('Bulan'); ?>       
+
+        <!-- ?= $form->field($model, 'thn')->dropDownList(
+                                                \app\models\Data::thn(1956,35), 
+                                                ['prompt'=>'Tahun...'])->label('Tahun'); ?> -->        
+        <?php 
+            // Normal select with ActiveForm & model
+            echo $form->field($model, 'thn')->widget(Select2::classname(), [
+                'data' => \app\models\Data::thn(), 
+                'language' => 'en',
+                'options' => ['placeholder' => 'Pilih Tahun...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ])->label('Tahun'); ?>       
+
         <?= $form->field($model, 'no_telp')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-sm-3">
@@ -69,7 +102,7 @@ use kartik\select2\Select2;
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'create', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'INPUT' : 'create', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

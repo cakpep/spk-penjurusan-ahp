@@ -31,7 +31,7 @@ use kartik\select2\Select2;
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
-            ])->label('Guru'); ?>            
+            ])->label('Guru Pengampu'); ?>            
         <?php //$form->field($model, 'nip')->textInput(['maxlength' => true]) ?>
 
         <?php //$form->field($model, 'id_matapelajaran')->textInput() ?>

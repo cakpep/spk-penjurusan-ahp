@@ -97,7 +97,6 @@ class SiswaController extends Controller
                     $foto->saveAs('uploads/foto_siswa/'. $model->foto);
                 }
                 
-
                 $signUp = new \frontend\models\SignupForm();
                 $signUp->username = $model->nis;
                 $signUp->email = $model->email;
@@ -118,6 +117,8 @@ class SiswaController extends Controller
               
                 if($signUp->signup()){
                     Yii::$app->session->setFlash('success', 'Simpan Berhasil');
+                }else{
+                    Yii::$app->session->setFlash('warning', 'Simpan gagal');
                 }
                 return $this->redirect(['index']);
             }else{

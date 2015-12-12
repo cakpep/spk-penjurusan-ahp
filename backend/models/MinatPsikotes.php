@@ -52,7 +52,7 @@ class MinatPsikotes extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getNis0()
+    public function getNisSiswa()
     {
         return $this->hasOne(Siswa::className(), ['nis' => 'nis']);
     }

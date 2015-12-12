@@ -131,7 +131,7 @@ class Data
 	         );;
 	        return $listData;
 	}
-	public static function thn($thmulai=1965,$thakhir=40){
+	public static function thn($thmulai=1955,$thakhir=40){
 		for ($i=1; $i <= $thakhir ; $i++) { 
 			$mulai = $thmulai+$i;
 			$listData[$mulai] = $mulai;
@@ -170,17 +170,17 @@ class Data
 	}
 	public static function minat(){
 	        $listData = array(
-	        	'101' => 'IPA',
-	        	'102' => 'IPS',
-	        	'103' => 'BAHASA'
+	        	'IPA' => 'IPA',
+	        	'IPS' => 'IPS',
+	        	'BAHASA' => 'BAHASA'
 	         );;
 	        return $listData;
 	}
 	public static function psikotes(){
 	        $listData = array(
-	        	'101' => 'IPA',
-	        	'102' => 'IPS',
-	        	'103' => 'BAHASA'
+	        	'IPA' => 'IPA',
+	        	'IPS' => 'IPS',
+	        	'BAHASA' => 'BAHASA'
 	         );;
 	        return $listData;
 	}

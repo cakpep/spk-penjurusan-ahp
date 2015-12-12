@@ -55,9 +55,9 @@ class MatapelajaranGuru extends \yii\db\ActiveRecord
     {
         return [
             'id_matapelajaran_guru' => 'Id Matapelajaran Guru',
-            'nip' => 'Nip',
-            'id_matapelajaran' => 'Id Matapelajaran',
-            'id_kelas' => 'Id Kelas',
+            'nip' => 'NIP',
+            'id_matapelajaran' => 'Mata Pelajaran',
+            'id_kelas' => 'Kelas',
             'sub_kls1' => 'Sub Kls1',
             'sub_kls2' => 'Sub Kls2',
             'sub_kls3' => 'Sub Kls3',
