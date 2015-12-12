@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\NilaiSearch */
@@ -46,7 +46,26 @@ $this->params['breadcrumbs'][] = $this->title;
                         return $model->mataPelajaran->maPel->matapelajaran;
                     }
                 ],
-                'nilai',
+                [
+                    'class' => 'kartik\grid\EditableColumn',
+                    'attribute'=> 'nilai',
+                    //'readonly'=>function($model, $key, $index, $widget) {
+                    //    return (!$model->nilai); // do not allow editing of inactive records
+                    //},
+                    'editableOptions' => [
+                        'header' => 'Isikan Nilai',
+                        'inputType' => \kartik\editable\Editable::INPUT_SPIN,
+                        //'formOptions' => ['action' => 'update-column'],
+                        'options' => [
+                            'pluginOptions' => ['min'=>0, 'max'=>100]
+                        ]
+                    ],
+                    'hAlign'=>'right', 
+                    'vAlign'=>'middle',
+                    'width'=>'100px',
+                    //'format'=>['decimal', 2],
+                    'pageSummary' => true
+                ],
                 'tahun_ajaran',
 
                 [
