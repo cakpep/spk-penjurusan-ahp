@@ -40,7 +40,7 @@ array(
                         'attribute'=>'id_kelas',
                         'format' => 'raw',
                         'value' => function($model){
-                            return $model->idKelas->kelas.'-'.$model->idKelas->sub_kls;
+                            return ($model->idKelas) ? $model->idKelas->kelas.'-'.$model->idKelas->sub_kls : "-";
                         }
                     ],
                 'nama',
