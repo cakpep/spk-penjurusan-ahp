@@ -92,10 +92,9 @@ class GuruController extends Controller
                 if($signUp->signup()){
                     Yii::$app->session->setFlash('success', 'Simpan Berhasil');
                 }else{
-                    Yii::$app->session->setFlash('warning', 'Simpan gagal');
+                    Yii::$app->session->setFlash('warning', 'Simpan Gagal');
                 }
                 return $this->redirect(['index']);
-                
             }else{
                 Yii::$app->session->setFlash('warning', 'Failed');
             }
@@ -157,7 +156,8 @@ class GuruController extends Controller
         $model = $this->findModel($id);
         $foto = $model->foto;
         if($model->delete()){
-            unlink(getcwd().'/uploads/foto_guru/'.$foto);    
+            chmod('uploads/foto_guru/'.$foto,0777);
+            unlink('uploads/foto_guru/'.$foto);    
         }        
         return $this->redirect(['index']);
     }

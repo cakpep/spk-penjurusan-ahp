@@ -6,13 +6,13 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\MinatPsikotes */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Minat Psikotes', 'url' => ['index']];
+$this->title = $model->nis;
+$this->params['breadcrumbs'][] = ['label' => 'Minat & Psikotes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="minat-psikotes-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -25,14 +25,17 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'nis',
-            'minat',
-            'psikotes',
-        ],
-    ]) ?>
-
+    <div class="row">
+        <div class="col-sm-8">
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                //'id',
+                'nis',
+                'minat',
+                'psikotes',
+            ],
+        ]) ?>
+        </div>
+    </div>
 </div>

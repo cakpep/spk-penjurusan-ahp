@@ -5,14 +5,14 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Kelas */
 
-$this->title = 'Update Kelas: ' . ' ' . $model->id_kelas;
+$this->title = 'Update Kelas ' . ' ' . $model->kelas.' '.$model->sub_kls;
 $this->params['breadcrumbs'][] = ['label' => 'Kelas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id_kelas, 'url' => ['view', 'id' => $model->id_kelas]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="kelas-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
 
     <?= $this->render('_form', [
         'model' => $model,

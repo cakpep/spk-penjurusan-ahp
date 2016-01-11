@@ -6,13 +6,13 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Guru */
 
-$this->title = $model->nip;
+$this->title = $model->nama;
 $this->params['breadcrumbs'][] = ['label' => 'Gurus', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="guru-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->nip], ['class' => 'btn btn-primary']) ?>
@@ -24,36 +24,38 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'nip',
-            'password',
-            'nama',
-            'alamat:ntext',
-            'agama',
-            'email:email',
-            
-            [
-                'label'=>'jns_kelamin',
-                'format' => 'raw',
-                'value' => !empty($model->jns_kelamin) ? ($model->jns_kelamin=='L') ? 'Laki-laki' : 'Perempuan':'',
+    <div class="row">
+        <div class="col-sm-8">
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'nip',
+                'password',
+                'nama',
+                'alamat:ntext',
+                'agama',
+                'email:email',
+                
+                [
+                    'label'=>'jns_kelamin',
+                    'format' => 'raw',
+                    'value' => !empty($model->jns_kelamin) ? ($model->jns_kelamin=='L') ? 'Laki-laki' : 'Perempuan':'',
+                ],
+                'tempat_lahir',
+                [
+                    'label'=>'tgl_lahir',
+                    'format' => 'raw',
+                    'value' => !empty($model->tgl_lahir) ? date('d-M-Y',strtotime($model->tgl_lahir)) : '-',
+                ],
+                'no_telp',
+                [
+                    'label'=>'foto',
+                    'format' => 'html',
+                    'value' => !empty($model->foto) ? \yii\helpers\Url::to('@web').'/uploads/foto_guru/'.$model->foto : 'images.png',
+                    'format' => ['image',['width'=>200,'height'=>200]],
+                ],
             ],
-            'tempat_lahir',
-            [
-                'label'=>'tgl_lahir',
-                'format' => 'raw',
-                'value' => !empty($model->tgl_lahir) ? date('d-M-Y',strtotime($model->tgl_lahir)) : '-',
-            ],
-            'no_telp',
-            [
-                'label'=>'foto',
-                'format' => 'html',
-                'value' => !empty($model->foto) ? \yii\helpers\Url::to('@web').'/uploads/foto_guru/'.$model->foto : 'images.png',
-                'format' => ['image',['width'=>200,'height'=>200]],
-            ],
-        ],
-    ]) ?>
-
+        ]) ?>
+        </div>
+    </div>
 </div>

@@ -49,11 +49,15 @@ use kartik\select2\Select2;
         </div>
         <div class="col-sm-3">
         <?= $form->field($model, 'tempat_lahir')->textInput(['maxlength' => true]) ?>
+        </div>
         
+        <div class="col-sm-1">
         <?php //$form->field($model, 'tgl_lahir')->textInput() ?>
         <!-- ?= $form->field($model, 'tgl')->dropDownList(
                                                 \app\models\Data::tgl(), 
                                                 ['prompt'=>'Tanggal...'])->label('Tanggal'); ?> -->
+        
+        
         <?php 
             // Normal select with ActiveForm & model
             echo $form->field($model, 'tgl')->widget(Select2::classname(), [
@@ -64,10 +68,13 @@ use kartik\select2\Select2;
                     'allowClear' => true
                 ],
             ])->label('Tanggal'); ?>       
-
+        </div>
+        <div class="col-sm-1">
         <!-- ?= $form->field($model, 'bln')->dropDownList(
                                                 \app\models\Data::bln(), 
                                                 ['prompt'=>'Bulan...'])->label('Bulan'); ?> -->
+        
+        
         <?php 
             // Normal select with ActiveForm & model
             echo $form->field($model, 'bln')->widget(Select2::classname(), [
@@ -78,7 +85,8 @@ use kartik\select2\Select2;
                     'allowClear' => true
                 ],
             ])->label('Bulan'); ?>       
-
+        </div>
+        <div class="col-sm-1">
         <!-- ?= $form->field($model, 'thn')->dropDownList(
                                                 \app\models\Data::thn(1956,35), 
                                                 ['prompt'=>'Tahun...'])->label('Tahun'); ?> -->        
@@ -92,10 +100,10 @@ use kartik\select2\Select2;
                     'allowClear' => true
                 ],
             ])->label('Tahun'); ?>       
-
-        <?= $form->field($model, 'no_telp')->textInput(['maxlength' => true]) ?>
         </div>
+    
         <div class="col-sm-3">
+        <?= $form->field($model, 'no_telp')->textInput(['maxlength' => true]) ?>
         <?= $form->field($model, 'alamat')->textarea(['rows' => 6]) ?>
         <?= $form->field($model, 'foto')->fileInput() ?>
         </div>

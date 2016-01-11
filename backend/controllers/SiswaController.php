@@ -94,6 +94,7 @@ class SiswaController extends Controller
 
             if($model->save()){
                 if($foto){
+                    mkdir('uploads/foto_siswa',0777,true);
                     $foto->saveAs('uploads/foto_siswa/'. $model->foto);
                 }
                 
@@ -115,10 +116,10 @@ class SiswaController extends Controller
                                              
                 }
               
-                if($signUp->signup()){
+                 if($signUp->signup()){
                     Yii::$app->session->setFlash('success', 'Simpan Berhasil');
                 }else{
-                    Yii::$app->session->setFlash('warning', 'Simpan gagal');
+                    Yii::$app->session->setFlash('warning', 'Simpan Gagal');
                 }
                 return $this->redirect(['index']);
             }else{
@@ -160,9 +161,10 @@ class SiswaController extends Controller
             if ($model->save()) {       
                 if($foto){
                     $foto->saveAs('uploads/foto_siswa/'. $model->foto);
+                    chmod('uploads/foto_siswa/'. $model->foto, 777);
                 }
                 $user = \common\models\User::find()
-                                ->where('email > :email', [':email' => $model->email])
+                                ->where('email=:email', [':email' => $model->email])
                                 ->one();
                 if(!empty($user)){
                     $user->password = $model->password;
@@ -194,7 +196,11 @@ class SiswaController extends Controller
         $model = $this->findModel($id);
         $foto = $model->foto;
         if($model->delete()){
-            unlink(getcwd().'/uploads/foto_siswa/'.$foto);    
+            if($foto){
+                chmod('uploads/foto_siswa/'. $foto, 777);
+                unlink('uploads/foto_siswa/'.$foto);        
+            }
+            
         }        
 
         return $this->redirect(['index']);

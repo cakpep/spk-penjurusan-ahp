@@ -6,13 +6,13 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Jurusan */
 
-$this->title = $model->id_jurusan;
+$this->title = $model->jurusan;
 $this->params['breadcrumbs'][] = ['label' => 'Jurusans', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="jurusan-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id_jurusan], ['class' => 'btn btn-primary']) ?>
@@ -25,12 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id_jurusan',
-            'jurusan',
-        ],
-    ]) ?>
-
+    <div class="row">
+        <div class="col-sm-6">
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'id_jurusan',
+                'jurusan',
+            ],
+        ]) ?>
+        </div>
+    </div>
 </div>

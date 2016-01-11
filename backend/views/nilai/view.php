@@ -6,13 +6,13 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Nilai */
 
-$this->title = $model->id_nilai;
-$this->params['breadcrumbs'][] = ['label' => 'Nilais', 'url' => ['index']];
+$this->title = $model->nis;
+$this->params['breadcrumbs'][] = ['label' => 'Nilai', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="nilai-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id_nilai], ['class' => 'btn btn-primary']) ?>
@@ -25,15 +25,18 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id_nilai',
-            'nis',
-            'id_matapelajaran',
-            'nilai',
-            'tahun_ajaran',
-        ],
-    ]) ?>
-
+    <div class="row">
+        <div class="col-sm-8">
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                //'id_nilai',
+                'nis',
+                'id_matapelajaran',
+                'nilai',
+                'tahun_ajaran',
+            ],
+        ]) ?>
+        </div>
+    </div>
 </div>

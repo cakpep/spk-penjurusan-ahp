@@ -13,6 +13,7 @@ use kartik\select2\Select2;
     <?php $form = ActiveForm::begin([
             //'id' => 'search-form',
             'method' => 'post',
+            'action' => $model->isNewRecord ? ['create'] : ['update','id'=>$model->nis],
             //'action' => ['create'],
             'options' =>['enctype'=>'multipart/form-data'] // important
         ]); ?>
@@ -61,11 +62,14 @@ use kartik\select2\Select2;
 
         <?= $form->field($model, 'tempat_lahir')->textInput(['maxlength' => true]) ?>
         </div>
-        <div class="col-sm-3">
+        
+        <div class="col-sm-1">
         <?php //$form->field($model, 'tgl_lahir')->textInput() ?>
         <!-- ?= $form->field($model, 'tgl')->dropDownList(
                                                 \app\models\Data::tgl(), 
                                                 ['prompt'=>'Tanggal...'])->label('Tanggal'); ?> -->
+        
+           
         <?php 
             // Normal select with ActiveForm & model
             echo $form->field($model, 'tgl')->widget(Select2::classname(), [
@@ -76,7 +80,8 @@ use kartik\select2\Select2;
                     'allowClear' => true
                 ],
             ])->label('Tanggal'); ?>       
-
+        </div>
+        <div class="col-sm-1">
         <!-- ?= $form->field($model, 'bln')->dropDownList(
                                                 \app\models\Data::bln(), 
                                                 ['prompt'=>'Bulan...'])->label('Bulan'); ?> -->
@@ -90,7 +95,8 @@ use kartik\select2\Select2;
                     'allowClear' => true
                 ],
             ])->label('Bulan'); ?>      
-
+        </div>
+        <div class="col-sm-1">
         <!-- ?= $form->field($model, 'thn')->dropDownList(
                                                 \app\models\Data::thn(1996,10), 
                                                 ['prompt'=>'Tahun...'])->label('Tahun'); ?> -->
@@ -105,7 +111,9 @@ use kartik\select2\Select2;
                 ],
             ])->label('Tahun'); ?>     
         
+        </div>
 
+        <div class="col-sm-3">
         <?= $form->field($model, 'no_telp')->textInput(['maxlength' => true]) ?>
 
         <?php //$form->field($model, 'jns_kelamin')->dropDownList([ 'L' => 'L', 'P' => 'P', ], ['prompt' => '']) ?>

@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="siswa-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h2><?= Html::encode($this->title) ?></h2>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->nis], ['class' => 'btn btn-primary']) ?>
@@ -25,34 +25,37 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'nis',
-            'nama',
-            'id_kelas',
-            'password',
-            'email:email',
-            'tempat_lahir',
-            [
-                'label'=>'tgl_lahir',
-                'format' => 'raw',
-                'value' => !empty($model->tgl_lahir) ? date('d-M-Y',strtotime($model->tgl_lahir)) : '-',
+    <div class="row">
+        <div class="col-sm-8">
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'nis',
+                'nama',
+                'id_kelas',
+                'password',
+                'email:email',
+                'tempat_lahir',
+                [
+                    'label'=>'tgl_lahir',
+                    'format' => 'raw',
+                    'value' => !empty($model->tgl_lahir) ? date('d-M-Y',strtotime($model->tgl_lahir)) : '-',
+                ],
+                'no_telp',
+                [
+                    'label'=>'jns_kelamin',
+                    'format' => 'raw',
+                    'value' => !empty($model->jns_kelamin) ? ($model->jns_kelamin=='L') ? 'Laki-laki' : 'Perempuan':'',
+                ],
+                'alamat:ntext',
+                [
+                    'label'=>'foto',
+                    'format' => 'html',
+                    'value' => !empty($model->foto) ? \yii\helpers\Url::to('@web').'/uploads/foto_siswa/'.$model->foto : 'images.png',
+                    'format' => ['image',['width'=>200,'height'=>200]],
+                ],
             ],
-            'no_telp',
-            [
-                'label'=>'jns_kelamin',
-                'format' => 'raw',
-                'value' => !empty($model->jns_kelamin) ? ($model->jns_kelamin=='L') ? 'Laki-laki' : 'Perempuan':'',
-            ],
-            'alamat:ntext',
-            [
-                'label'=>'foto',
-                'format' => 'html',
-                'value' => !empty($model->foto) ? \yii\helpers\Url::to('@web').'/uploads/foto_siswa/'.$model->foto : 'images.png',
-                'format' => ['image',['width'=>200,'height'=>200]],
-            ],
-        ],
-    ]) ?>
-
+        ]) ?>
+        </div>
+    </div>
 </div>
