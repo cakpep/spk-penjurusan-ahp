@@ -21,6 +21,7 @@ use yii\helpers\Html;
         </ul>
         <ul class="list-group">
           <li class="list-group-item"><div class = 'text-center'><b>MENU INFO</b></div></li>
+          <li class="list-group-item"><?= Html::a('BERITA', ['/berita'], ['class' => 'btn btn-sm btn-primary btn-block']) ?></li>
           <li class="list-group-item"><?= Html::a('KRITERIA', ['/kriteria'], ['class' => 'btn btn-sm btn-primary btn-block']) ?></li>
         </ul>
   
