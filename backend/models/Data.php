@@ -13,7 +13,7 @@ class Data
 	public static function nip_guru(){
 	    $connection = \Yii::$app->db;
 	    $id = Yii::$app->user->identity->id;
-        $query ="SELECT nip FROM guru g WHERE  g.`email` IN (SELECT email FROM USER WHERE id=$id AND LEVEL='guru')";
+        $query ="SELECT nip FROM guru g WHERE  g.`email` IN (SELECT email FROM user WHERE id=$id AND LEVEL='guru')";
         $model = $connection->createCommand($query);
         $array = $model->queryAll();
        
@@ -57,10 +57,16 @@ class Data
 	public static function matapelajaranGuru(){
 	    $connection = \Yii::$app->db;
 	    $nip = self::nip_guru();
-        $query ="SELECT mg.`id_matapelajaran_guru` AS id ,m.`matapelajaran` AS mapel
+        if(strtolower(Yii::$app->user->identity->level)=='admin'){
+            $query ="SELECT mg.`id_matapelajaran_guru` AS id ,m.`matapelajaran` AS mapel
+				FROM
+				matapelajaran_guru mg JOIN matapelajaran m ON mg.`id_matapelajaran`=m.`id_matapelajaran`";
+        }else{
+            $query ="SELECT mg.`id_matapelajaran_guru` AS id ,m.`matapelajaran` AS mapel
 				FROM
 				matapelajaran_guru mg JOIN matapelajaran m ON mg.`id_matapelajaran`=m.`id_matapelajaran`
 				WHERE mg.`nip`='$nip'";
+        }
 
         $model = $connection->createCommand($query);
         $array = $model->queryAll();

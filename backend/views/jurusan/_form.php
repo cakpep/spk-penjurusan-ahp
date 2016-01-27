@@ -10,11 +10,18 @@ use yii\widgets\ActiveForm;
 
 <div class="jurusan-form">
 
-    <?php $form = ActiveForm::begin([
-    //'id' => 'search-form',
-    'method' => 'post',
-    'action' => ['create']
-    ]); ?>
+     <?php 
+    if(isset($action)){
+            $form = ActiveForm::begin([
+        //'id' => 'search-form',
+        'method' => 'post',
+        'action' => ['create']
+        ]); 
+    }else{
+        $form = ActiveForm::begin(); 
+ 
+    }
+    ?>
 
 	<div class="row">
         <div class="col-sm-2">
@@ -23,6 +30,9 @@ use yii\widgets\ActiveForm;
         <div class="col-sm-2">
 	    <?= $form->field($model, 'jurusan')->textInput(['maxlength' => true]) ?>
 	    </div>
+        <div class="col-sm-2">
+        <?= $form->field($model, 'standard_bobot')->textInput(['maxlength' => true]) ?>
+        </div>
     </div>
 
     <div class="form-group">

@@ -10,11 +10,18 @@ use kartik\select2\Select2;
 
 <div class="nilai-form">
 
-    <?php $form = ActiveForm::begin([
-    //'id' => 'search-form',
-    'method' => 'post',
-    'action' => ['create']
-    ]); ?>
+    <?php 
+    if(isset($action)){
+            $form = ActiveForm::begin([
+        //'id' => 'search-form',
+        'method' => 'post',
+        'action' => ['create']
+        ]); 
+    }else{
+        $form = ActiveForm::begin(); 
+ 
+    }
+    ?>
 
     <div class="row">
         <div class="col-sm-3">

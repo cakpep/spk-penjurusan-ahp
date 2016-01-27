@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $id_jurusan
  * @property string $jurusan
+ * @property double $standard_bobot
  *
  * @property Kriteria[] $kriterias
  * @property Matapelajaran[] $matapelajarans
@@ -31,6 +32,7 @@ class Jurusan extends \yii\db\ActiveRecord
         return [
             [['id_jurusan', 'jurusan'], 'required'],
             [['id_jurusan'], 'integer'],
+            [['standard_bobot'], 'string'],
             [['jurusan'], 'string', 'max' => 6]
         ];
     }
@@ -43,6 +45,7 @@ class Jurusan extends \yii\db\ActiveRecord
         return [
             'id_jurusan' => 'Id Jurusan',
             'jurusan' => 'Jurusan',
+            'standard_bobot' => 'Standard Bobot',
         ];
     }
 

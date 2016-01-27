@@ -43,6 +43,24 @@ class HasilPembobotanController extends Controller
         ]);
     }
 
+
+    /**
+     * Lists all Nilai models.
+     * @return mixed
+     */
+    public function actionPenjurusan()
+    {
+        $searchModel = new NilaiPembobotanKriteriaSearch();
+        // $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->sqlLaporan();
+        
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Finds the Nilai model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

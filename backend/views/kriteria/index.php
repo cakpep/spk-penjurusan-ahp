@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
+use app\models\Prioritas;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\KriteriaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -21,16 +21,49 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        // 'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id_kriteria',
+            // 'id_kriteria',
             'prioritas',
-            'id_jurusan',
-            'bobot',
+            
+             [
+                'attribute'=> 'id_jurusan',
+                'format' => 'raw',
+                'value' => function($model){
+                    return $model->idJurusan->jurusan;
+                }
+            ],
+            
+            [
+                'attribute'=>'bobot',
+                'header' => 'Kriteria Prioritas',
+                'format' => 'raw',
+                'value' => function($model){
+                    return $model->bobot;
+                }
+            ],
+            // 'prioritas_sub',
+            [
+                'attribute'=>'prioritas_sub',
+                'header' => 'Nilai Bobot',
+                'format' => 'raw',
+                'value' => function($model){
+                    return $model->prioritas_sub;
+                }
+            ],
+            [
+                'attribute'=>'prioritas',
+                'header' => 'Bobot Prioritas',
+                'format' => 'raw',
+                'value' => function($model){
+                    $model = Prioritas::findOne($model->prioritas);
+                    return $model->bobot;
+                }
+            ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            // ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 

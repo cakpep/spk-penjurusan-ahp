@@ -119,5 +119,99 @@ class NilaiPembobotanKriteriaSearch extends NilaiPembobotanKriteria
             return $dataProvider;
     }
 
+
+    public function cariNilaiMax($nis)
+    {         
+            $connection = \Yii::$app->db;      
+            $query = "SELECT
+                      -- `n`.`nis`       AS `nis`,
+                      -- `s`.`nama`      AS `nama`,
+                      -- CONCAT(`k`.`kelas`,`k`.`sub_kls`) AS `kelas`,                      
+                      ROUND(SUM(n.nilai)/COUNT(n.nilai),2) nilai,
+                      `j`.`jurusan`   AS `penjurusan`
+                      -- `mp`.`minat`    AS `minat`,
+                      -- `mp`.`psikotes` AS `psikotes`
+                      
+                    FROM ((((((`nilai` `n`
+                            JOIN `matapelajaran_guru` `mg`
+                              ON ((`n`.`id_matapelajaran` = `mg`.`id_matapelajaran_guru`)))
+                           JOIN `matapelajaran` `m`
+                             ON ((`m`.`id_matapelajaran` = `mg`.`id_matapelajaran`)))
+                          JOIN `jurusan` `j`
+                            ON ((`j`.`id_jurusan` = `m`.`id_jurusan`)))
+                         JOIN `siswa` `s`
+                           ON ((`s`.`nis` = `n`.`nis`)))
+                        JOIN `kelas` `k`
+                          ON ((`k`.`id_kelas` = `s`.`id_kelas`)))
+                       JOIN `minat_psikotes` `mp`
+                         ON ((`mp`.`nis` = `n`.`nis`)))
+                    where n.nis='$nis'
+                    GROUP BY j.`id_jurusan`,n.`nis`
+                    ORDER BY n.`nis`";
+        
+            $model = $connection->createCommand($query);
+            $data = $model->queryAll();
+            return $data;
+    }
+
+
+    public function cariNilaiMax_backup($nis)
+    {         
+            $connection = \Yii::$app->db;      
+            $query = "SELECT
+                      `n`.`nis`       AS `nis`,
+                      `s`.`nama`      AS `nama`,
+                      CONCAT(`k`.`kelas`,`k`.`sub_kls`) AS `kelas`,
+                      `j`.`jurusan`   AS `penjurusan`,
+                      ROUND(SUM(n.nilai)/COUNT(n.nilai),2) nilai, 
+                      `mp`.`minat`    AS `minat`,
+                      `mp`.`psikotes` AS `psikotes`
+                      
+                    FROM ((((((`nilai` `n`
+                            JOIN `matapelajaran_guru` `mg`
+                              ON ((`n`.`id_matapelajaran` = `mg`.`id_matapelajaran_guru`)))
+                           JOIN `matapelajaran` `m`
+                             ON ((`m`.`id_matapelajaran` = `mg`.`id_matapelajaran`)))
+                          JOIN `jurusan` `j`
+                            ON ((`j`.`id_jurusan` = `m`.`id_jurusan`)))
+                         JOIN `siswa` `s`
+                           ON ((`s`.`nis` = `n`.`nis`)))
+                        JOIN `kelas` `k`
+                          ON ((`k`.`id_kelas` = `s`.`id_kelas`)))
+                       JOIN `minat_psikotes` `mp`
+                         ON ((`mp`.`nis` = `n`.`nis`)))
+                    GROUP BY j.`id_jurusan`,n.`nis`
+                    ORDER BY n.`nis`";
+        
+            $model = $connection->createCommand($query);
+            $data = $model->queryAll();
+            return $data;
+    }
+
+
+    public function prioritas(){
+        $connection = \Yii::$app->db;      
+            $query = "SELECT  jurusan  FROM jurusan";
+            $model = $connection->createCommand($query);
+            $data = $model->queryAll();
+            return $data;
+    }
+
+
+    public function kriteria($kr,$jr){
+        $connection = \Yii::$app->db;      
+            $query = "SELECT  
+                        k.prioritas,j.jurusan ,k.bobot,k.prioritas_sub as bn,
+                        (SELECT  round(p.bobot,2)  FROM prioritas p where p.kode=k.prioritas)as bp
+                        FROM 
+                        kriteria k join jurusan j on k.id_jurusan=j.id_jurusan 
+                        where k.prioritas='$kr' and j.jurusan='$jr'
+                    order by k.prioritas,k.id_jurusan ";
+            $model = $connection->createCommand($query);
+            $data = $model->queryAll();
+         
+            return $data;
+    }
+
 }
 

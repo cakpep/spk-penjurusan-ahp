@@ -54,12 +54,23 @@ class KriteriaController extends Controller
         ]);
     }
     
-    public function actionMetode()
+    public function actionMetode($ktg='prioritas')
     {   
-        $kriteria = KriteriaPrioritas::find()->all();
+        $kriteria = KriteriaPrioritas::find()->where("kategori='$ktg' ")->all();
         $data =array();
         foreach ($kriteria as $key => $value) {
-            $kk = $value->kriteria;
+            if( $value->kriteria=='IPA' || $value->kriteria=='nilai'){
+                $kk = 'nilai';
+            }
+
+            if( $value->kriteria=='IPS' || $value->kriteria=='minat'){
+                $kk = 'minat';
+            }
+
+            if( $value->kriteria=='BAHASA' || $value->kriteria=='psikotes'){
+                $kk = 'psikotes';
+            }
+
             $data[$kk]= array(
                             'nilai'=>  intval($value->nilai),
                             'minat'=> intval($value->minat),
@@ -70,17 +81,19 @@ class KriteriaController extends Controller
         
         $kriteriaPrioritas = $this->hitungNilaiKriteriaPrioritas($data);
         
-        $matriksNilaiKriteria = $this->hitungMatriksNilaiKriteria($kriteriaPrioritas);
+        $matriksNilaiKriteria = $this->hitungMatriksNilaiKriteria($kriteriaPrioritas,$ktg);
         
         $matriksNilaiKriteriaPenjumlahan = $this->hitungMatriksPenjumlahanSetiapBaris($kriteriaPrioritas,$matriksNilaiKriteria);
         
-        return $this->render('metode',[
+        return $this->render($ktg,[
                                         'data' => $kriteriaPrioritas,
                                         'matriksNilaiKriteria' => $matriksNilaiKriteria,
                                         'matriksNilaiKriteriaPenjumlahan' => $matriksNilaiKriteriaPenjumlahan
                                     ]);
     }
     
+    
+      
     
     public function hitungNilaiKriteriaPrioritas($data){
         $dataHitung = array
@@ -111,7 +124,7 @@ class KriteriaController extends Controller
         
     }
     
-    public function hitungMatriksNilaiKriteria($data){
+    public function hitungMatriksNilaiKriteria($data,$ktg){
         $dataHitung = array
                     (
                         'nilai' => array(
@@ -153,6 +166,41 @@ class KriteriaController extends Controller
                         ),            
         );
         
+        $connection = \Yii::$app->db;
+        
+        if($ktg!=='prioritas'){            
+            $prioritas_sub_nilai = 0;
+            
+            foreach($prioritas['prioritas'] as $key => $val){
+                if($key=='nilai'){ //dianggap IPA
+                    $jurid=101;
+                    $prioritas_sub_nilai = number_format($prioritas['prioritas']['nilai']/max($prioritas['prioritas']),2);
+                }
+
+                if($key=='minat'){//dianggap IPS
+                    $jurid=102;
+                    $prioritas_sub_nilai = number_format($prioritas['prioritas']['minat']/max($prioritas['prioritas']),2);
+                }
+
+                if($key=='psikotes'){ //dianggap BAHASA
+                    $jurid=103;
+                    $prioritas_sub_nilai = number_format($prioritas['prioritas']['psikotes']/max($prioritas['prioritas']),2);
+                }
+                
+                $connection->createCommand()
+                            ->update('kriteria', ['bobot' => $val,'prioritas_sub'=>$prioritas_sub_nilai], "prioritas='$ktg' and id_jurusan=$jurid")
+                            ->execute();
+            }
+            
+        }else{
+            foreach($prioritas['prioritas'] as $key => $val){
+                    $connection->createCommand()
+                                ->update('prioritas', ['bobot' => $val], "kode='$key'")
+                                ->execute();
+            }
+        }
+
+
         $dataHitung = array_merge($dataHitung,$prioritas);
         
         return $dataHitung;

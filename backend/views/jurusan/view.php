@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'attributes' => [
                 'id_jurusan',
                 'jurusan',
+                'standard_bobot',
             ],
         ]) ?>
         </div>

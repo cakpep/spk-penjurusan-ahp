@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h2><?= Html::encode($this->title) ?></h2>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    <?php echo $this->render('_form', ['model' => $model]); ?>
+    <?php echo $this->render('_form', ['model' => $model,'action'=>'create']); ?>
 
     <p>
         <!-- ?= Html::a('Create Nilai', ['create'], ['class' => 'btn btn-success']) ?> -->
