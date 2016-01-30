@@ -29,7 +29,7 @@ AppAsset::register($this);
     <?php
 
     NavBar::begin([
-        'brandLabel' => 'My Schools',
+        'brandLabel' => 'SMA NEGERI 9 PONTIANAK',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse',// navbar-fixed-top',
@@ -43,23 +43,23 @@ AppAsset::register($this);
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
-        $menuItems =[ 
-                ['label' => 'SISWA', 'url' => ['/siswa']],
-                ['label' => 'NILAI', 'url' => ['/nilai']],
-                ['label' => 'MINAT PSIKOTES', 'url' => ['/minat-psikotes']],
-                ['label' => 'MATAPELAJARAN GURU', 'url' => ['/matapelajaran-guru']],
-                ['label' => 'MATAPELAJARAN', 'url' => ['/matapelajaran']],
-                ['label' => 'KRITERIA', 'url' => ['/kriteria']],
-                ['label' => 'JURUSAN', 'url' => ['/jurusan']],
-                ['label' => 'GURU', 'url' => ['/guru']],
-                ['label' => 'BERITA', 'url' => ['/berita']],
-                ['label' => 'ADMIN', 'url' => ['/admin']],
-                [
+       } else {
+         $menuItems =[ 
+    //             ['label' => 'SISWA', 'url' => ['/siswa']],
+    //             ['label' => 'NILAI', 'url' => ['/nilai']],
+    //             ['label' => 'MINAT PSIKOTES', 'url' => ['/minat-psikotes']],
+    //             ['label' => 'MATAPELAJARAN GURU', 'url' => ['/matapelajaran-guru']],
+    //             ['label' => 'MATAPELAJARAN', 'url' => ['/matapelajaran']],
+    //             ['label' => 'KRITERIA', 'url' => ['/kriteria']],
+    //             ['label' => 'JURUSAN', 'url' => ['/jurusan']],
+    //             ['label' => 'GURU', 'url' => ['/guru']],
+    //             ['label' => 'BERITA', 'url' => ['/berita']],
+    //             ['label' => 'ADMIN', 'url' => ['/admin']],
+                 [
                     'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
-                ]];
+                 ]];
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],

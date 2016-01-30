@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     'id_jurusan',
                     'jurusan',
-                    'standard_bobot',
+                    // 'standard_bobot',
 
                     [
                         'class' => 'yii\grid\ActionColumn',

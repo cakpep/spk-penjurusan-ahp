@@ -23,18 +23,10 @@ use kartik\select2\Select2;
 
         <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
         <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
-
-        </div>
-        <div class="col-sm-3">
-        <?php //$form->field($model, 'jns_kelamin')->dropDownList([ 'L' => 'L', 'P' => 'P', ], ['prompt' => '']) ?>
-        <?= $form->field($model, 'jns_kelamin')->radioList(
-                                                \app\models\Data::jns_kelamin() 
-                                                )->label('Jenis Kelamin'); ?>
-        <?php //$form->field($model, 'agama')->textInput(['maxlength' => true]) ?>
-        <!-- ?= $form->field($model, 'agama')->dropDownList(
-                                                \app\models\Data::agama(), 
-                                                ['prompt'=>'Pilih...'])->label('Agama'); ?> -->
         <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+        </div>
+
+        <div class="col-sm-3">
         <?php 
             // Normal select with ActiveForm & model
             echo $form->field($model, 'agama')->widget(Select2::classname(), [
@@ -44,19 +36,25 @@ use kartik\select2\Select2;
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
-            ])->label('Agama'); ?>            
+            ])->label('Agama'); ?>   
+        <!-- ?php //$form->field($model, 'jns_kelamin')->dropDownList([ 'L' => 'L', 'P' => 'P', ], ['prompt' => '']) ?> -->
+        <?= $form->field($model, 'jns_kelamin')->radioList(
+                                                \app\models\Data::jns_kelamin() 
+                                                )->label('Jenis Kelamin'); ?>
+        <!-- ?php //$form->field($model, 'agama')->textInput(['maxlength' => true]) ?> -->
+        <!-- ?= $form->field($model, 'agama')->dropDownList(
+                                                \app\models\Data::agama(), 
+                                                ['prompt'=>'Pilih...'])->label('Agama'); ?> -->         
     
-        </div>
-        <div class="col-sm-3">
         <?= $form->field($model, 'tempat_lahir')->textInput(['maxlength' => true]) ?>
         </div>
         
+    <div class="row">
         <div class="col-sm-1">
-        <?php //$form->field($model, 'tgl_lahir')->textInput() ?>
+        <!-- ?php //$form->field($model, 'tgl_lahir')->textInput() ?> -->
         <!-- ?= $form->field($model, 'tgl')->dropDownList(
                                                 \app\models\Data::tgl(), 
                                                 ['prompt'=>'Tanggal...'])->label('Tanggal'); ?> -->
-        
         
         <?php 
             // Normal select with ActiveForm & model
@@ -69,6 +67,7 @@ use kartik\select2\Select2;
                 ],
             ])->label('Tanggal'); ?>       
         </div>
+
         <div class="col-sm-1">
         <!-- ?= $form->field($model, 'bln')->dropDownList(
                                                 \app\models\Data::bln(), 
@@ -101,12 +100,16 @@ use kartik\select2\Select2;
                 ],
             ])->label('Tahun'); ?>       
         </div>
-    
+            <div class="col-sm-3">
+                <?= $form->field($model, 'no_telp')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($model, 'foto')->fileInput() ?>
+            </div>
+            
         <div class="col-sm-3">
-        <?= $form->field($model, 'no_telp')->textInput(['maxlength' => true]) ?>
-        <?= $form->field($model, 'alamat')->textarea(['rows' => 6]) ?>
-        <?= $form->field($model, 'foto')->fileInput() ?>
+            <?= $form->field($model, 'alamat')->textarea(['rows' => 6]) ?>
+        
         </div>
+    </div>
     </div>
 
     <div class="form-group">

@@ -55,6 +55,7 @@ use kartik\select2\Select2;
             ?>            
 
         </div>
+    <div class="row">
         <div class="col-sm-3">
         <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
@@ -62,9 +63,9 @@ use kartik\select2\Select2;
 
         <?= $form->field($model, 'tempat_lahir')->textInput(['maxlength' => true]) ?>
         </div>
-        
+    <div class="row">
         <div class="col-sm-1">
-        <?php //$form->field($model, 'tgl_lahir')->textInput() ?>
+        <!-- ?php //$form->field($model, 'tgl_lahir')->textInput() ?> -->
         <!-- ?= $form->field($model, 'tgl')->dropDownList(
                                                 \app\models\Data::tgl(), 
                                                 ['prompt'=>'Tanggal...'])->label('Tanggal'); ?> -->
@@ -112,15 +113,17 @@ use kartik\select2\Select2;
             ])->label('Tahun'); ?>     
         
         </div>
-
+    
         <div class="col-sm-3">
         <?= $form->field($model, 'no_telp')->textInput(['maxlength' => true]) ?>
 
-        <?php //$form->field($model, 'jns_kelamin')->dropDownList([ 'L' => 'L', 'P' => 'P', ], ['prompt' => '']) ?>
+        <!-- ?php //$form->field($model, 'jns_kelamin')->dropDownList([ 'L' => 'L', 'P' => 'P', ], ['prompt' => '']) ?> -->
         <?= $form->field($model, 'jns_kelamin')->radioList(
                                                 \app\models\Data::jns_kelamin() 
                                                 )->label('Jenis Kelamin'); ?>
         </div>
+    
+    <div class="row">
         <div class="col-sm-3">
         <?= $form->field($model, 'alamat')->textarea(['rows' => 6]) ?>
 
@@ -132,6 +135,9 @@ use kartik\select2\Select2;
         
 
         </div>
+    </div>
+    </div>
+    </div>
     </div>
 
     <div class="form-group">

@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 
 <div class="jurusan-form">
 
-     <?php 
+    <?php 
     if(isset($action)){
             $form = ActiveForm::begin([
         //'id' => 'search-form',
@@ -31,7 +31,7 @@ use yii\widgets\ActiveForm;
 	    <?= $form->field($model, 'jurusan')->textInput(['maxlength' => true]) ?>
 	    </div>
         <div class="col-sm-2">
-        <?= $form->field($model, 'standard_bobot')->textInput(['maxlength' => true]) ?>
+        <!-- ?= $form->field($model, 'standard_bobot')->textInput(['maxlength' => true]) ?> -->
         </div>
     </div>
 

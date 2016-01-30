@@ -7,7 +7,7 @@ use yii\helpers\Url;
 /* @var $model app\models\Kriteria */
 
 $this->title = 'Metode';
-$this->params['breadcrumbs'][] = ['label' => 'Kriterias', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Kriteria', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="kriteria-view">

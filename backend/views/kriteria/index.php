@@ -7,7 +7,7 @@ use app\models\Prioritas;
 /* @var $searchModel app\models\KriteriaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Kriterias';
+$this->title = 'Kriteria';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="kriteria-index">
@@ -15,9 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Kriteria', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <!-- <p>
+        ?= Html::a('Create Kriteria', ['create'], ['class' => 'btn btn-success']) ?>
+    </p> -->
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
