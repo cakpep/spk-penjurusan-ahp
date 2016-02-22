@@ -38,6 +38,7 @@ if ($level == 'admin') {
           <li class="list-group-item"><?=Html::a('BERITA', ['/berita'], ['class' => 'btn btn-sm btn-primary btn-block'])?></li>
           <?php if (\app\models\Data::isWaliKelas()) {?>
             <li class="list-group-item"><?=Html::a('PENJURUSAN', ['/hasil-pembobotan'], ['class' => 'btn btn-sm btn-primary btn-block'])?></li>
+            <li class="list-group-item"><?=Html::a('NILAI SISWA KELAS', ['/nilai/walikelas'], ['class' => 'btn btn-sm btn-primary btn-block'])?></li>
           <?php }
 	?>
         </ul>

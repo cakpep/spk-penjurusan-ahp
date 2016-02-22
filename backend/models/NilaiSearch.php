@@ -7,6 +7,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\data\SqlDataProvider;
+use yii\web\NotFoundHttpException;
 
 /**
  * NilaiSearch represents the model behind the search form about `app\models\Nilai`.
@@ -69,9 +70,13 @@ class NilaiSearch extends Nilai {
 	}
 
 	public function sqlLaporanNilai() {
+		$nip = null;
 		if (Yii::$app->user->identity->level == 'guru') {
 			$nip = Data::nip_guru();
 
+		}
+		if (empty($nip)) {
+			throw new NotFoundHttpException('Maaf Anda Tidak Diizinkan untuk mengakses halaman ini.');
 		}
 		$query = "SELECT n.`id_nilai`,n.`nis`,s.`id_kelas` ,concat(`k`.`kelas`, `k`.`sub_kls`) AS `kelas`
                         ,s.`nama`,mp.`matapelajaran`,n.`nilai` FROM
@@ -81,6 +86,39 @@ class NilaiSearch extends Nilai {
                         JOIN matapelajaran mp ON mp.`id_matapelajaran`=mg.`id_matapelajaran`
                         join kelas k on k.id_kelas=s.id_kelas
                         WHERE g.nip='$nip'";
+
+		$count = Yii::$app->db->createCommand($query)->queryScalar();
+		$dataProvider = new SqlDataProvider([
+			'sql' => $query,
+			'totalCount' => (int) $count,
+			'pagination' => [
+				'pagesize' => 100,
+			],
+		]);
+
+		return $dataProvider;
+	}
+
+	public function sqlWaliKelas() {
+		$nip = null;
+		if (Yii::$app->user->identity->level == 'guru') {
+			$nip = Data::nip_guru();
+		}
+		if (empty($nip)) {
+			throw new NotFoundHttpException('Maaf Anda Tidak Diizinkan untuk mengakses halaman ini.');
+		}
+		$walikelas = Data::isWaliKelas();
+		if (empty($walikelas)) {
+			throw new NotFoundHttpException('Maaf Anda Tidak Diizinkan untuk mengakses halaman ini.');
+		}
+		$query = "SELECT n.`id_nilai`,n.`nis`,s.`id_kelas` ,concat(`k`.`kelas`, `k`.`sub_kls`) AS `kelas`
+                        ,s.`nama`,mp.`matapelajaran`,n.`nilai` FROM
+                        nilai n JOIN matapelajaran_guru mg ON n.`id_matapelajaran`=mg.`id_matapelajaran_guru`
+                        JOIN guru g ON mg.nip=g.`nip`
+                        JOIN siswa s ON s.`nis`=n.`nis`
+                        JOIN matapelajaran mp ON mp.`id_matapelajaran`=mg.`id_matapelajaran`
+                        join kelas k on k.id_kelas=s.id_kelas
+                        WHERE k.id_kelas=" . $walikelas['id_kelas'];
 
 		$count = Yii::$app->db->createCommand($query)->queryScalar();
 		$dataProvider = new SqlDataProvider([
