@@ -34,8 +34,8 @@ array(
                 ['class' => 'yii\grid\SerialColumn'],
 
                 'nis',
-                'password',
-                // 'id_kelas',
+                'nama',
+                 // 'id_kelas',
                 [
                         'attribute'=>'id_kelas',
                         'format' => 'raw',
@@ -43,7 +43,7 @@ array(
                             return ($model->idKelas) ? $model->idKelas->kelas.'-'.$model->idKelas->sub_kls : "-";
                         }
                     ],
-                'nama',
+                'password',
                 'email:email',
                 'tempat_lahir',
                 

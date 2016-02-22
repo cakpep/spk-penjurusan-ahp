@@ -12,7 +12,7 @@ use kartik\select2\Select2;
 	<?php $form = ActiveForm::begin([
     //'id' => 'search-form',
     'method' => 'post',
-    'action' => $model->isNewRecord ? ['create'] : ['update','id'=>$model->id_matapelajaran],
+    'action' => $model->isNewRecord ? ['create'] : ['update','id'=>$model->matapelajaran],
     //'action' => ['create']
 	]); ?>
 
@@ -34,11 +34,11 @@ use kartik\select2\Select2;
             ])->label('Jurusan'); ?>            
         </div>
         <div class="col-sm-2">
-	    <?= $form->field($model, 'id_matapelajaran')->textInput() ?>
-	    </div>
+        <?= $form->field($model, 'matapelajaran')->textInput(['maxlength' => true]) ?>
+        </div>
         <div class="col-sm-2">
-	    <?= $form->field($model, 'matapelajaran')->textInput(['maxlength' => true]) ?>
-		</div>
+	    <!-- ?= $form->field($model, 'id_matapelajaran')->textInput() ?> -->
+	    </div>
 	</div>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'INPUT' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

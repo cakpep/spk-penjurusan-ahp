@@ -41,7 +41,7 @@ use kartik\select2\Select2;
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
-            ])->label('NIS'); ?>            
+            ])->label('NAMA'); ?>            
 
         <?php //$form->field($model, 'id_matapelajaran')->textInput() ?>
         <!-- ?= $form->field($model,'id_matapelajaran')->dropDownList(
@@ -59,6 +59,7 @@ use kartik\select2\Select2;
             ])->label('Mata Pelajaran'); ?>            
 
         </div>
+        
         <div class="col-sm-3">
 
         <?= $form->field($model, 'nilai')->textInput() ?>
@@ -67,7 +68,7 @@ use kartik\select2\Select2;
         <!-- ?= $form->field($model, 'tahun_ajaran')->dropDownList(
                                                 \app\models\Data::tahun_ajaran(), 
                                                 ['prompt'=>'Pilih...'])->label('Tahun Ajaran'); ?> -->
-        <?php 
+       <!--  ?php 
             // Normal select with ActiveForm & model
             echo $form->field($model, 'tahun_ajaran')->widget(Select2::classname(), [
                 'data' => \app\models\Data::tahun_ajaran(), 
@@ -77,7 +78,7 @@ use kartik\select2\Select2;
                     'allowClear' => true
                 ],
             ])->label('Tahun Ajaran'); ?>            
-
+ -->
         </div>
     </div>
 

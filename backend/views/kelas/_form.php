@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin([
     //'id' => 'search-form',
     'method' => 'post',
-    'action' => $model->isNewRecord ? ['create'] : ['update','id'=>$model->id_kelas],
+    'action' => $model->isNewRecord ? ['create'] : ['update','id'=>$model->kelas],
     //'action' => ['create']
     ]); ?>
 

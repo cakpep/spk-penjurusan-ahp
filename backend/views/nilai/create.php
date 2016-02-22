@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Nilai */
 
 $this->title = 'Input Nilai Siswa';
-$this->params['breadcrumbs'][] = ['label' => 'Nilais', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Nilai', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="nilai-create">

@@ -6,8 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Kriteria */
 
-$this->title = $model->id_kriteria;
-$this->params['breadcrumbs'][] = ['label' => 'Kriterias', 'url' => ['index']];
+$this->title = $model->prioritas;
+$this->params['breadcrumbs'][] = ['label' => 'Kriteria', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="kriteria-view">
@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id_kriteria], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id_kriteria], [
+        <?= Html::a('Edit', ['update', 'id' => $model->prioritas], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Hapus', ['delete', 'id' => $model->prioritas], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',

@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\models\Matapelajaran */
 
 $this->title = 'Tambah Data Matapelajaran';
-$this->params['breadcrumbs'][] = ['label' => 'Matapelajaran', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Mata Pelajaran', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="matapelajaran-create">

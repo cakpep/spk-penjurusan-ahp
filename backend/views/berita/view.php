@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Berita */
 
 $this->title = $model->judul;
-$this->params['breadcrumbs'][] = ['label' => 'Beritas', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Berita', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="berita-view">

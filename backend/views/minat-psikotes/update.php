@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\MinatPsikotes */
 
-$this->title = 'Update Minat Psikotes: ' . ' ' . $model->id;
+$this->title = 'Edit Minat Psikotes : ' . ' ' . $model->nis;
 $this->params['breadcrumbs'][] = ['label' => 'Minat Psikotes', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->nis, 'url' => ['view', 'id' => $model->nis]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="minat-psikotes-update">

@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Guru */
 
 $this->title = $model->nama;
-$this->params['breadcrumbs'][] = ['label' => 'Gurus', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Guru', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="guru-view">
@@ -15,11 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h2><?= Html::encode($this->title) ?></h2>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->nip], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->nip], [
+        <?= Html::a('Update', ['Edit', 'id' => $model->nama], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['Hapus', 'id' => $model->nama], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Apakah anda yakin akan menghapus item ini?',
                 'method' => 'post',
             ],
         ]) ?>

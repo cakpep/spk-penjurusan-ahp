@@ -32,13 +32,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <tr>
             <td><b>Minat</b></td>
             <td><input type="text" id="minat-nilai" disabled="" value="<?php echo $data['minat']['nilai']; ?>"></td>
-            <td><input type="text" id="minat-minat" disabled="" value="<?php echo $data['minat']['minat']; ?>"></td>
-            <td><input type="text" id="minat-psikotest" disabled="" value="<?php echo $data['minat']['psikotes']; ?>"></td>
+            <td><input type="text" id="minat-minat" name="minat-minat" value="<?php echo $data['minat']['minat']; ?>"></td>
+            <td><input type="text" id="minat-psikotest" name="minat-psikotes" value="<?php echo $data['minat']['psikotes']; ?>"></td>
         </tr>
         <tr>
             <td><b>Psikotest</b></td>
             <td><input type="text" id="psikotets-nilai" disabled="" value="<?php echo $data['psikotes']['nilai']; ?>"></td>
-            <td><input type="text" id="psikotets-minat" disabled="" value="<?php echo $data['psikotes']['minat']; ?>"></td>
+            <td><input type="text" id="psikotets-minat" name="psikotes-minat" value="<?php echo $data['psikotes']['minat']; ?>"></td>
             <td><input type="text" id="psikotets-psikotest" disabled="" value="<?php echo $data['psikotes']['psikotes']; ?>"></td>
         </tr>
         <tr>
@@ -50,7 +50,9 @@ $this->params['breadcrumbs'][] = $this->title;
         
     </table>
         <!--<a href="#" class="btn btn-primary " id="hitung">Hitung</a>-->
-        <!--<? Html::a('Hitung', ['metode?ajax=1'], ['class' => 'btn btn-success','id'=>'hitung']) ?>-->
+        <div class="row">
+            <? Html::a('Hitung', ['metode?ajax=1'], ['class' => 'btn btn-success','id'=>'hitung']) ?>
+        </div>
     </form>
     
     

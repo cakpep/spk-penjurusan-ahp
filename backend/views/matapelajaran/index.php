@@ -28,9 +28,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
 
-                'id_jurusan',
+                //'id_jurusan',
+                [
+                    'attribute'=>'id_jurusan',
+                    'format' => 'raw',
+                    'value' => function($model){
+                        return $model->jur->jurusan;
+                    }
+                ],
                 
-                'id_matapelajaran',
+                //'id_matapelajaran',
+
                 'matapelajaran',
 
                 [

@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Matapelajaran */
 
 $this->title = $model->matapelajaran;
-$this->params['breadcrumbs'][] = ['label' => 'Matapelajarans', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Mata Pelajaran', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="matapelajaran-view">
@@ -15,11 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h2><?= Html::encode($this->title) ?></h2>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id_matapelajaran], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id_matapelajaran], [
+        <?= Html::a('Edit', ['update', 'id' => $model->matapelajaran], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Hapus', ['delete', 'id' => $model->matapelajaran], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Apakah anda yakin akan menghapus item ini?',
                 'method' => 'post',
             ],
         ]) ?>

@@ -22,6 +22,18 @@ class Data
         }        
 	}
 
+	public static function nis_siswa(){
+	    $connection = \Yii::$app->db;
+	    $id = Yii::$app->user->identity->id;
+        $query ="SELECT nis FROM siswa g WHERE  g.`email` IN (SELECT email FROM user WHERE id=$id AND LEVEL='siswa')";
+        $model = $connection->createCommand($query);
+        $array = $model->queryAll();
+       
+        if(!empty($array[0]['nis'])){
+        	return $array[0]['nis'];
+        }        
+	}
+
 	public static function kelas(){
 		$connection = \Yii::$app->db;
         $query ="SELECT id_kelas, CONCAT(kelas,'-',sub_kls) as kelas FROM kelas";

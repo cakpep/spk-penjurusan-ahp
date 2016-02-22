@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $model app\models\Nilai */
 
 $this->title = 'Update Nilai: ' . ' ' . $model->id_nilai;
-$this->params['breadcrumbs'][] = ['label' => 'Nilais', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id_nilai, 'url' => ['view', 'id' => $model->id_nilai]];
+$this->params['breadcrumbs'][] = ['label' => 'Nilai', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->id_nilai, 'url' => ['view', 'nis' => $model->id_nilai]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="nilai-update">

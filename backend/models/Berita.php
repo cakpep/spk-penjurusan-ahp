@@ -46,7 +46,7 @@ class Berita extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_berita' => 'Id Berita',
+            //'id_berita' => 'Id Berita',
             'judul' => 'Judul',
             'isi_berita' => 'Isi Berita',
             'nip' => 'NIP',

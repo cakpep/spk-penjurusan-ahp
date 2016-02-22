@@ -99,10 +99,10 @@ class SiswaController extends Controller
                 }
                 
                 $signUp = new \frontend\models\SignupForm();
-                $signUp->username = $model->nis;
+                $signUp->username = $model->email;
                 $signUp->email = $model->email;
                 $signUp->password = $model->password;
-                $signUp->level = 'siswa';
+                $signUp->level = 'Siswa';
                 
                 $mapel = MatapelajaranGuru::find()->all();
 

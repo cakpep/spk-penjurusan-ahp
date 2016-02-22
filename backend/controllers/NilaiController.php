@@ -46,7 +46,13 @@ class NilaiController extends Controller
     {
         $model = new Nilai();
         $searchModel = new NilaiSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if(Yii::$app->user->identity->level=='guru'){
+            $dataProvider = $searchModel->sqlLaporanNilai();
+        }else{
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            
+        }
+        
          // validate if there is a editable input saved via AJAX
         if (Yii::$app->request->post('hasEditable')) {
             // instantiate your book model for saving

@@ -13,7 +13,7 @@ use kartik\select2\Select2;
     <?php $form = ActiveForm::begin([
     //'id' => 'search-form',
     'method' => 'post',
-    'action' => $model->isNewRecord ? ['create'] : ['update','id'=>$model->id_matapelajaran_guru],
+    'action' => $model->isNewRecord ? ['Input'] : ['update','id'=>$model->matapelajaran_guru],
     //'action' => ['create']
     ]); ?>
 

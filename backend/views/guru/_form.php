@@ -31,7 +31,7 @@ use kartik\select2\Select2;
             // Normal select with ActiveForm & model
             echo $form->field($model, 'agama')->widget(Select2::classname(), [
                 'data' => \app\models\Data::agama(), 
-                'language' => 'en',
+                'language' => 'id',
                 'options' => ['placeholder' => 'Pilih...'],
                 'pluginOptions' => [
                     'allowClear' => true

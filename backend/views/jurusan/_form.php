@@ -24,12 +24,13 @@ use yii\widgets\ActiveForm;
     ?>
 
 	<div class="row">
-        <div class="col-sm-2">
-	    <?= $form->field($model, 'id_jurusan')->textInput() ?>
-		</div>
+        
         <div class="col-sm-2">
 	    <?= $form->field($model, 'jurusan')->textInput(['maxlength' => true]) ?>
 	    </div>
+        <div class="col-sm-2">
+        <!-- ?= $form->field($model, 'id_jurusan')->textInput() ?> -->
+        </div>
         <div class="col-sm-2">
         <!-- ?= $form->field($model, 'standard_bobot')->textInput(['maxlength' => true]) ?> -->
         </div>

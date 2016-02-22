@@ -6,6 +6,8 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Nilai;
+use yii\data\SqlDataProvider;
+
 
 /**
  * NilaiSearch represents the model behind the search form about `app\models\Nilai`.
@@ -70,4 +72,32 @@ class NilaiSearch extends Nilai
 
         return $dataProvider;
     }
+
+
+
+    public function sqlLaporanNilai()
+    {   
+        if(Yii::$app->user->identity->level=='guru'){
+            $nip = Data::nip_guru();
+
+        }
+            $query = "SELECT n.`id_nilai`,n.`nis`,s.`nama`,mp.`matapelajaran`,n.`nilai` FROM 
+                        nilai n JOIN matapelajaran_guru mg ON n.`id_matapelajaran`=mg.`id_matapelajaran_guru`
+                        JOIN guru g ON mg.nip=g.`nip`
+                        JOIN siswa s ON s.`nis`=n.`nis`
+                        JOIN matapelajaran mp ON mp.`id_matapelajaran`=mg.`id_matapelajaran`
+                        WHERE g.nip='$nip'";
+
+            $count = Yii::$app->db->createCommand($query)->queryScalar();
+            $dataProvider = new SqlDataProvider([
+                                                'sql' => $query,
+                                                'totalCount' => (int) $count,
+                                                'pagination' => [
+                                                    'pagesize' => 100,
+                                                ],
+                                            ]);
+
+            return $dataProvider;
+    }
+
 }

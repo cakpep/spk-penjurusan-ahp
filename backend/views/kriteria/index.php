@@ -36,14 +36,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             
-            [
-                'attribute'=>'bobot',
-                'header' => 'Kriteria Prioritas',
-                'format' => 'raw',
-                'value' => function($model){
-                    return $model->bobot;
-                }
-            ],
+            // [
+            //     'attribute'=>'bobot',
+            //     'header' => 'Kriteria Prioritas',
+            //     'format' => 'raw',
+            //     'value' => function($model){
+            //         return $model->bobot;
+            //     }
+            // ],
             // 'prioritas_sub',
             [
                 'attribute'=>'prioritas_sub',

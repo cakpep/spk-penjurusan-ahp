@@ -3,11 +3,13 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\helpers\Url;
+use yii\widgets\ActiveForm;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\Kriteria */
 
 $this->title = 'Metode';
-$this->params['breadcrumbs'][] = ['label' => 'Psikotes', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'PSIKOTES', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <p>
@@ -28,7 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
     <h3>Matriks Perbandingan Psikotes</h3>
-    <form id="form-metode">
+    <?php $form = ActiveForm::begin(['action'=>['kriteria/metode-simpan','methode' => 'psikotes']]); ?>
+    
         
     <table class="table table-bordered">
         <tr>
@@ -39,33 +42,51 @@ $this->params['breadcrumbs'][] = $this->title;
         </tr>
         <tr>
             <td><b>IPA</b></td>
-            <td><input type="text" id="nilai-nilai" value="<?php echo $data['nilai']['nilai']; ?>"></td>
-            <td><input type="text" id="nilai-minat" value="<?php echo $data['nilai']['minat']; ?>"></td>
-            <td><input type="text" id="nilai-psikotest" value="<?php echo $data['nilai']['psikotes']; ?>"></td>
+            <td><input type="text" disabled="true" id="nilai-nilai" value="<?php echo $data['nilai']['nilai']; ?>"></td>
+            <td>
+                <?php
+                    $kriteriaModel->nilaiMinat = $data['nilai']['minat'];
+                ?>
+                <?= $form->field($kriteriaModel, 'nilaiMinat')->textInput(['maxlength' => true])->label(false) ?>
+            <td>
+                <?php
+                    $kriteriaModel->nilaiPsikotes = $data['nilai']['psikotes'];
+                ?>
+                <?= $form->field($kriteriaModel, 'nilaiPsikotes')->textInput(['maxlength' => true])->label(false) ?>
+            </td>
         </tr>
         <tr>
             <td><b>IPS</b></td>
-            <td><input type="text" id="minat-nilai"  value="<?php echo $data['minat']['nilai']; ?>"></td>
-            <td><input type="text" id="minat-minat"  value="<?php echo $data['minat']['minat']; ?>"></td>
-            <td><input type="text" id="minat-psikotest"  value="<?php echo $data['minat']['psikotes']; ?>"></td>
+            <td><input type="text" disabled="true" id="minat-nilai"  value="<?php echo $data['minat']['nilai']; ?>"></td>
+            <td><input type="text" disabled="true" id="minat-minat"  value="<?php echo $data['minat']['minat']; ?>"></td>
+            <td>
+                <?php
+                    $kriteriaModel->minatPsikotes = $data['minat']['psikotes'];
+                ?>
+          
+                <?= $form->field($kriteriaModel, 'minatPsikotes')->textInput(['maxlength' => true])->label(false) ?>
+            </td>
         </tr>
         <tr>
             <td><b>BAHASA</b></td>
-            <td><input type="text" id="psikotets-nilai"  value="<?php echo $data['psikotes']['nilai']; ?>"></td>
-            <td><input type="text" id="psikotets-minat"  value="<?php echo $data['psikotes']['minat']; ?>"></td>
-            <td><input type="text" id="psikotets-psikotest"  value="<?php echo $data['psikotes']['psikotes']; ?>"></td>
+            <td><input type="text" disabled="true" id="psikotets-nilai"  value="<?php echo $data['psikotes']['nilai']; ?>"></td>
+            <td><input type="text" disabled="true" id="psikotets-minat"  value="<?php echo $data['psikotes']['minat']; ?>"></td>
+            <td><input type="text" disabled="true" id="psikotets-psikotest"  value="<?php echo $data['psikotes']['psikotes']; ?>"></td>
         </tr>
         <tr>
             <td><b>Jumlah</b></td>
-            <td><input type="text" id="jumlah-nilai"  value="<?php echo $data['jumlah']['nilai']; ?>"></td>
-            <td><input type="text" id="jumlah-minat"  value="<?php echo $data['jumlah']['minat']; ?>"></td>
-            <td><input type="text" id="jumlah-psikotest"  value="<?php echo $data['jumlah']['psikotes']; ?>"></td>
+            <td><input type="text" disabled="true" id="jumlah-nilai"  value="<?php echo $data['jumlah']['nilai']; ?>"></td>
+            <td><input type="text" disabled="true" id="jumlah-minat"  value="<?php echo $data['jumlah']['minat']; ?>"></td>
+            <td><input type="text" disabled="true" id="jumlah-psikotest"  value="<?php echo $data['jumlah']['psikotes']; ?>"></td>
         </tr>
         
     </table>
-        <!--<a href="#" class="btn btn-primary " id="hitung">Hitung</a>-->
-        <!--<? Html::a('Hitung', ['metode?ajax=1'], ['class' => 'btn btn-success','id'=>'hitung']) ?>-->
-    </form>
+        <div class="row">
+            <div class="col-sm-6">
+                <button value="prioritas" type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+        </div>
+    <?php ActiveForm::end(); ?>
     
     
     <h3>Matriks Nilai Kriteria</h3>
@@ -81,30 +102,30 @@ $this->params['breadcrumbs'][] = $this->title;
         </tr>
         <tr>
             <td><b>IPA</b></td>
-            <td><input type="text" id="nilai-nilai" value="<?php echo $matriksNilaiKriteria['nilai']['nilai']; ?>"></td>
-            <td><input type="text" id="nilai-minat" value="<?php echo $matriksNilaiKriteria['nilai']['minat']; ?>"></td>
-            <td><input type="text" id="nilai-psikotest" value="<?php echo $matriksNilaiKriteria['nilai']['psikotes']; ?>"></td>
-            <td><input type="text" id="nilai-jumlah" value="<?php echo $matriksNilaiKriteria['jumlah']['nilai']; ?>"></td>
-            <td><input type="text" id="nilai-prioritas" value="<?php echo $matriksNilaiKriteria['prioritas']['nilai']; ?>"></td>
-            <td><input type="text" id="nilai-prioritas" value="<?php echo number_format($matriksNilaiKriteria['prioritas']['nilai']/max($matriksNilaiKriteria['prioritas']),2); ?>"></td>
+            <td><input type="text" disabled="true" id="nilai-nilai" value="<?php echo $matriksNilaiKriteria['nilai']['nilai']; ?>"></td>
+            <td><input type="text" disabled="true" id="nilai-minat" value="<?php echo $matriksNilaiKriteria['nilai']['minat']; ?>"></td>
+            <td><input type="text" disabled="true" id="nilai-psikotest" value="<?php echo $matriksNilaiKriteria['nilai']['psikotes']; ?>"></td>
+            <td><input type="text" disabled="true" id="nilai-jumlah" value="<?php echo $matriksNilaiKriteria['jumlah']['nilai']; ?>"></td>
+            <td><input type="text" disabled="true" id="nilai-prioritas" value="<?php echo $matriksNilaiKriteria['prioritas']['nilai']; ?>"></td>
+            <td><input type="text" disabled="true" id="nilai-prioritas" value="<?php echo number_format($matriksNilaiKriteria['prioritas']['nilai']/max($matriksNilaiKriteria['prioritas']),2); ?>"></td>
         </tr>
         <tr>
             <td><b>IPS</b></td>
-            <td><input type="text" id="minat-nilai"  value="<?php echo $matriksNilaiKriteria['minat']['nilai']; ?>"></td>
-            <td><input type="text" id="minat-minat"  value="<?php echo $matriksNilaiKriteria['minat']['minat']; ?>"></td>
-            <td><input type="text" id="minat-psikotest"  value="<?php echo $matriksNilaiKriteria['minat']['psikotes']; ?>"></td>
-            <td><input type="text" id="minat-jumlah" value="<?php echo $matriksNilaiKriteria['jumlah']['minat']; ?>"></td>
-            <td><input type="text" id="minat-prioritas" value="<?php echo $matriksNilaiKriteria['prioritas']['minat']; ?>"></td>
-            <td><input type="text" id="nilai-prioritas" value="<?php echo number_format($matriksNilaiKriteria['prioritas']['minat']/max($matriksNilaiKriteria['prioritas']),2); ?>"></td>
+            <td><input type="text" disabled="true" id="minat-nilai"  value="<?php echo $matriksNilaiKriteria['minat']['nilai']; ?>"></td>
+            <td><input type="text" disabled="true" id="minat-minat"  value="<?php echo $matriksNilaiKriteria['minat']['minat']; ?>"></td>
+            <td><input type="text" disabled="true" id="minat-psikotest"  value="<?php echo $matriksNilaiKriteria['minat']['psikotes']; ?>"></td>
+            <td><input type="text" disabled="true" id="minat-jumlah" value="<?php echo $matriksNilaiKriteria['jumlah']['minat']; ?>"></td>
+            <td><input type="text" disabled="true" id="minat-prioritas" value="<?php echo $matriksNilaiKriteria['prioritas']['minat']; ?>"></td>
+            <td><input type="text" disabled="true" id="nilai-prioritas" value="<?php echo number_format($matriksNilaiKriteria['prioritas']['minat']/max($matriksNilaiKriteria['prioritas']),2); ?>"></td>
         </tr>
         <tr>
             <td><b>BAHASA</b></td>
-            <td><input type="text" id="psikotets-nilai"  value="<?php echo $matriksNilaiKriteria['psikotes']['nilai']; ?>"></td>
-            <td><input type="text" id="psikotets-minat"  value="<?php echo $matriksNilaiKriteria['psikotes']['minat']; ?>"></td>
-            <td><input type="text" id="psikotets-psikotest"  value="<?php echo $matriksNilaiKriteria['psikotes']['psikotes']; ?>"></td>
-            <td><input type="text" id="psikotets-jumlah" value="<?php echo $matriksNilaiKriteria['jumlah']['psikotes']; ?>"></td>
-            <td><input type="text" id="psikotets-prioritas" value="<?php echo $matriksNilaiKriteria['prioritas']['psikotes']; ?>"></td>
-            <td><input type="text" id="nilai-prioritas" value="<?php echo number_format($matriksNilaiKriteria['prioritas']['psikotes']/max($matriksNilaiKriteria['prioritas']),2); ?>"></td>
+            <td><input type="text" disabled="true" id="psikotets-nilai"  value="<?php echo $matriksNilaiKriteria['psikotes']['nilai']; ?>"></td>
+            <td><input type="text" disabled="true" id="psikotets-minat"  value="<?php echo $matriksNilaiKriteria['psikotes']['minat']; ?>"></td>
+            <td><input type="text" disabled="true" id="psikotets-psikotest"  value="<?php echo $matriksNilaiKriteria['psikotes']['psikotes']; ?>"></td>
+            <td><input type="text" disabled="true" id="psikotets-jumlah" value="<?php echo $matriksNilaiKriteria['jumlah']['psikotes']; ?>"></td>
+            <td><input type="text" disabled="true" id="psikotets-prioritas" value="<?php echo $matriksNilaiKriteria['prioritas']['psikotes']; ?>"></td>
+            <td><input type="text" disabled="true" id="nilai-prioritas" value="<?php echo number_format($matriksNilaiKriteria['prioritas']['psikotes']/max($matriksNilaiKriteria['prioritas']),2); ?>"></td>
         </tr>        
         
     </table>
@@ -123,32 +144,32 @@ $this->params['breadcrumbs'][] = $this->title;
         </tr>
         <tr>
             <td><b>IPA</b></td>
-            <td><input type="text" id="nilai-nilai" value="<?php echo $matriksNilaiKriteriaPenjumlahan['nilai']['nilai']; ?>"></td>
-            <td><input type="text" id="nilai-minat" value="<?php echo $matriksNilaiKriteriaPenjumlahan['nilai']['minat']; ?>"></td>
-            <td><input type="text" id="nilai-psikotest" value="<?php echo $matriksNilaiKriteriaPenjumlahan['nilai']['psikotes']; ?>"></td>
-            <td><input type="text" id="nilai-jumlah" value="<?php echo $matriksNilaiKriteriaPenjumlahan['jumlah']['nilai']; ?>"></td>
-            <td><input type="text" id="nilai-prioritas" value="<?php echo $matriksNilaiKriteriaPenjumlahan['prioritas']['nilai']; ?>"></td>
-            <td><input type="text" id="nilai-hasil" value="<?php echo $matriksNilaiKriteriaPenjumlahan['hasil']['nilai']; ?>"></td>
+            <td><input type="text" disabled="true" id="nilai-nilai" value="<?php echo $matriksNilaiKriteriaPenjumlahan['nilai']['nilai']; ?>"></td>
+            <td><input type="text" disabled="true" id="nilai-minat" value="<?php echo $matriksNilaiKriteriaPenjumlahan['nilai']['minat']; ?>"></td>
+            <td><input type="text" disabled="true" id="nilai-psikotest" value="<?php echo $matriksNilaiKriteriaPenjumlahan['nilai']['psikotes']; ?>"></td>
+            <td><input type="text" disabled="true" id="nilai-jumlah" value="<?php echo $matriksNilaiKriteriaPenjumlahan['jumlah']['nilai']; ?>"></td>
+            <td><input type="text" disabled="true" id="nilai-prioritas" value="<?php echo $matriksNilaiKriteriaPenjumlahan['prioritas']['nilai']; ?>"></td>
+            <td><input type="text" disabled="true" id="nilai-hasil" value="<?php echo $matriksNilaiKriteriaPenjumlahan['hasil']['nilai']; ?>"></td>
             
         </tr>
         <tr>
             <td><b>IPS</b></td>
-            <td><input type="text" id="minat-nilai"  value="<?php echo $matriksNilaiKriteriaPenjumlahan['minat']['nilai']; ?>"></td>
-            <td><input type="text" id="minat-minat"  value="<?php echo $matriksNilaiKriteriaPenjumlahan['minat']['minat']; ?>"></td>
-            <td><input type="text" id="minat-psikotest"  value="<?php echo $matriksNilaiKriteriaPenjumlahan['minat']['psikotes']; ?>"></td>
-            <td><input type="text" id="minat-jumlah" value="<?php echo $matriksNilaiKriteriaPenjumlahan['jumlah']['minat']; ?>"></td>
-            <td><input type="text" id="minat-prioritas" value="<?php echo $matriksNilaiKriteriaPenjumlahan['prioritas']['minat']; ?>"></td>
-            <td><input type="text" id="minat-hasil" value="<?php echo $matriksNilaiKriteriaPenjumlahan['hasil']['minat']; ?>"></td>
+            <td><input type="text" disabled="true" id="minat-nilai"  value="<?php echo $matriksNilaiKriteriaPenjumlahan['minat']['nilai']; ?>"></td>
+            <td><input type="text" disabled="true" id="minat-minat"  value="<?php echo $matriksNilaiKriteriaPenjumlahan['minat']['minat']; ?>"></td>
+            <td><input type="text" disabled="true" id="minat-psikotest"  value="<?php echo $matriksNilaiKriteriaPenjumlahan['minat']['psikotes']; ?>"></td>
+            <td><input type="text" disabled="true" id="minat-jumlah" value="<?php echo $matriksNilaiKriteriaPenjumlahan['jumlah']['minat']; ?>"></td>
+            <td><input type="text" disabled="true" id="minat-prioritas" value="<?php echo $matriksNilaiKriteriaPenjumlahan['prioritas']['minat']; ?>"></td>
+            <td><input type="text" disabled="true" id="minat-hasil" value="<?php echo $matriksNilaiKriteriaPenjumlahan['hasil']['minat']; ?>"></td>
             
         </tr>
         <tr>
             <td><b>BAHASA</b></td>
-            <td><input type="text" id="psikotets-nilai"  value="<?php echo $matriksNilaiKriteriaPenjumlahan['psikotes']['nilai']; ?>"></td>
-            <td><input type="text" id="psikotets-minat"  value="<?php echo $matriksNilaiKriteriaPenjumlahan['psikotes']['minat']; ?>"></td>
-            <td><input type="text" id="psikotets-psikotest"  value="<?php echo $matriksNilaiKriteriaPenjumlahan['psikotes']['psikotes']; ?>"></td>
-            <td><input type="text" id="psikotets-jumlah" value="<?php echo $matriksNilaiKriteriaPenjumlahan['jumlah']['psikotes']; ?>"></td>
-            <td><input type="text" id="psikotets-prioritas" value="<?php echo $matriksNilaiKriteriaPenjumlahan['prioritas']['psikotes']; ?>"></td>
-            <td><input type="text" id="psikotets-hasil" value="<?php echo $matriksNilaiKriteriaPenjumlahan['hasil']['psikotes']; ?>"></td>
+            <td><input type="text" disabled="true" id="psikotets-nilai"  value="<?php echo $matriksNilaiKriteriaPenjumlahan['psikotes']['nilai']; ?>"></td>
+            <td><input type="text" disabled="true" id="psikotets-minat"  value="<?php echo $matriksNilaiKriteriaPenjumlahan['psikotes']['minat']; ?>"></td>
+            <td><input type="text" disabled="true" id="psikotets-psikotest"  value="<?php echo $matriksNilaiKriteriaPenjumlahan['psikotes']['psikotes']; ?>"></td>
+            <td><input type="text" disabled="true" id="psikotets-jumlah" value="<?php echo $matriksNilaiKriteriaPenjumlahan['jumlah']['psikotes']; ?>"></td>
+            <td><input type="text" disabled="true" id="psikotets-prioritas" value="<?php echo $matriksNilaiKriteriaPenjumlahan['prioritas']['psikotes']; ?>"></td>
+            <td><input type="text" disabled="true" id="psikotets-hasil" value="<?php echo $matriksNilaiKriteriaPenjumlahan['hasil']['psikotes']; ?>"></td>
             
         </tr>        
         <tr>
@@ -156,7 +177,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php
             $hasilTotal = $matriksNilaiKriteriaPenjumlahan['hasil']['nilai']+$matriksNilaiKriteriaPenjumlahan['hasil']['minat']+$matriksNilaiKriteriaPenjumlahan['hasil']['psikotes'];
             ?>
-            <td><input type="text" id="psikotets-hasil" value="<?php echo number_format($hasilTotal,2); ?>"></td>                        
+            <td><input type="text" disabled="true" id="psikotets-hasil" value="<?php echo number_format($hasilTotal,2); ?>"></td>                        
         </tr>
         
     </table>

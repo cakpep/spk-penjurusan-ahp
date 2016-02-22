@@ -23,7 +23,7 @@ class KriteriaController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [                    
                     [
-                        'actions' => ['index', 'create', 'update','delete','view','metode','metode-hitung'],
+                        'actions' => ['index', 'create', 'update','delete','view','metode','metode-hitung','metode-simpan'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -53,11 +53,65 @@ class KriteriaController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+    public function actionMetodeSimpan($ktg='prioritas')
+    {
+        $data = Yii::$app->request->post();
+        
+        if($_GET['methode']=='prioritas'){
+            $prioritasMinat = KriteriaPrioritas::findOne(1); // mencari id yang sama dengan 1 di tabel kriteria prioritas 
+            $prioritasMinat->minat = $data['KriteriaPrioritas']['nilaiMinat'];
+            $prioritasMinat->psikotes = $data['KriteriaPrioritas']['nilaiPsikotes'];            
+            $prioritasMinat->save(); //menyimpan update data
+            
+            $prioritasPsikotes = KriteriaPrioritas::findOne(2);
+            $prioritasPsikotes->psikotes = $data['KriteriaPrioritas']['minatPsikotes'];
+            $prioritasPsikotes->save();
+            //untuk beralih ke halaman /action metode dg kategori prioritas
+            return $this->redirect(['metode', 'ktg' => 'prioritas']);                
+        }
+        if($_GET['methode']=='nilai'){
+            $prioritasMinat = KriteriaPrioritas::findOne(4);
+            $prioritasMinat->minat = $data['KriteriaPrioritas']['nilaiMinat'];
+            $prioritasMinat->psikotes = $data['KriteriaPrioritas']['nilaiPsikotes'];            
+            $prioritasMinat->save();
+            
+            $prioritasPsikotes = KriteriaPrioritas::findOne(9);
+            $prioritasPsikotes->psikotes = $data['KriteriaPrioritas']['minatPsikotes'];
+            $prioritasPsikotes->save();
+            return $this->redirect(['metode', 'ktg' => 'nilai']);                
+        }
+        if($_GET['methode']=='minat'){
+            $prioritasMinat = KriteriaPrioritas::findOne(12);
+            $prioritasMinat->minat = $data['KriteriaPrioritas']['nilaiMinat'];
+            $prioritasMinat->psikotes = $data['KriteriaPrioritas']['nilaiPsikotes'];            
+            $prioritasMinat->save();
+            
+            $prioritasPsikotes = KriteriaPrioritas::findOne(13);
+            $prioritasPsikotes->psikotes = $data['KriteriaPrioritas']['minatPsikotes'];
+            $prioritasPsikotes->save();
+            return $this->redirect(['metode', 'ktg' => 'minat']);                
+        }
+        if($_GET['methode']=='psikotes'){
+            $prioritasMinat = KriteriaPrioritas::findOne(15);
+            $prioritasMinat->minat = $data['KriteriaPrioritas']['nilaiMinat'];
+            $prioritasMinat->psikotes = $data['KriteriaPrioritas']['nilaiPsikotes'];            
+            $prioritasMinat->save();
+            
+            $prioritasPsikotes = KriteriaPrioritas::findOne(16);
+            $prioritasPsikotes->psikotes = $data['KriteriaPrioritas']['minatPsikotes'];
+            $prioritasPsikotes->save();
+            return $this->redirect(['metode', 'ktg' => 'psikotes']);                
+        }
+        
+    }
     
     public function actionMetode($ktg='prioritas')
     {   
+        $kriteriaModel = new KriteriaPrioritas();
         $kriteria = KriteriaPrioritas::find()->where("kategori='$ktg' ")->all();
         $data =array();
+        
         foreach ($kriteria as $key => $value) {
             if( $value->kriteria=='IPA' || $value->kriteria=='nilai'){
                 $kk = 'nilai';
@@ -79,8 +133,10 @@ class KriteriaController extends Controller
             
         }
         
+        //fungsi untuk kalkulasi hitungan Nilai Kriteria Prioritas
         $kriteriaPrioritas = $this->hitungNilaiKriteriaPrioritas($data);
         
+        //fungsi untuk kalkulasi hitungan Nilai Matriks Kriteria Prioritas
         $matriksNilaiKriteria = $this->hitungMatriksNilaiKriteria($kriteriaPrioritas,$ktg);
         
         $matriksNilaiKriteriaPenjumlahan = $this->hitungMatriksPenjumlahanSetiapBaris($kriteriaPrioritas,$matriksNilaiKriteria);
@@ -88,7 +144,8 @@ class KriteriaController extends Controller
         return $this->render($ktg,[
                                         'data' => $kriteriaPrioritas,
                                         'matriksNilaiKriteria' => $matriksNilaiKriteria,
-                                        'matriksNilaiKriteriaPenjumlahan' => $matriksNilaiKriteriaPenjumlahan
+                                        'matriksNilaiKriteriaPenjumlahan' => $matriksNilaiKriteriaPenjumlahan,
+                                        'kriteriaModel' => $kriteriaModel
                                     ]);
     }
     
@@ -172,6 +229,7 @@ class KriteriaController extends Controller
             $prioritas_sub_nilai = 0;
             
             foreach($prioritas['prioritas'] as $key => $val){
+                //number_format merubah format nilai decimal menjadi 2 angka di belakakng koma misal 0,21300 = 0,21
                 if($key=='nilai'){ //dianggap IPA
                     $jurid=101;
                     $prioritas_sub_nilai = number_format($prioritas['prioritas']['nilai']/max($prioritas['prioritas']),2);
@@ -183,16 +241,18 @@ class KriteriaController extends Controller
                 }
 
                 if($key=='psikotes'){ //dianggap BAHASA
-                    $jurid=103;
+                    $jurid=103; //kode id Mapel BHS
                     $prioritas_sub_nilai = number_format($prioritas['prioritas']['psikotes']/max($prioritas['prioritas']),2);
                 }
-                
+                // otomatis update ke tabel kriteria
                 $connection->createCommand()
                             ->update('kriteria', ['bobot' => $val,'prioritas_sub'=>$prioritas_sub_nilai], "prioritas='$ktg' and id_jurusan=$jurid")
                             ->execute();
             }
             
         }else{
+
+            //otomatis update table prioritas 
             foreach($prioritas['prioritas'] as $key => $val){
                     $connection->createCommand()
                                 ->update('prioritas', ['bobot' => $val], "kode='$key'")

@@ -42,16 +42,18 @@ class Matapelajaran extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_matapelajaran' => 'Id Matapelajaran',
+            'id_matapelajaran' => 'Matapelajaran',
             'id_jurusan' => 'Jurusan',
             'matapelajaran' => 'Mata Pelajaran',
         ];
     }
 
+    
+
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getIdJurusan()
+    public function getJur()
     {
         return $this->hasOne(Jurusan::className(), ['id_jurusan' => 'id_jurusan']);
     }

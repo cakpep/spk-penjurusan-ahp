@@ -103,13 +103,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             $total_hitung = round($total_bobot_nilai + $total_bobot_minat + $total_bobot_psikotes,2);
                             $hasil_penjurusan = "";
-                            if($total_hitung>=0.8){
+                            if($total_hitung>=0.75){
                                 $hasil_penjurusan = "IPA";
                             }
-                            if($total_hitung>=0.65 && $total_hitung<0.8){
+                            if($total_hitung>=0.55 && $total_hitung<0.75){
                                 $hasil_penjurusan = "IPS";
                             }
-                            if($total_hitung<0.65){
+                            if($total_hitung<0.55){
                                 $hasil_penjurusan = "BAHASA";
                             }
 

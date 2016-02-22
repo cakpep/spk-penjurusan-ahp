@@ -15,6 +15,9 @@ use Yii;
  */
 class KriteriaPrioritas extends \yii\db\ActiveRecord
 {
+    public $nilaiMinat;
+    public $nilaiPsikotes;
+    public $minatPsikotes;
     /**
      * @inheritdoc
      */
