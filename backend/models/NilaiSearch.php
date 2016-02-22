@@ -111,6 +111,9 @@ class NilaiSearch extends Nilai {
 		if (empty($walikelas)) {
 			throw new NotFoundHttpException('Maaf Anda Tidak Diizinkan untuk mengakses halaman ini.');
 		}
+		if (empty($walikelas['id_kelas'])) {
+			throw new NotFoundHttpException('Maaf Anda Tidak Diizinkan untuk mengakses halaman ini.');
+		}
 		$query = "SELECT n.`id_nilai`,n.`nis`,s.`id_kelas` ,concat(`k`.`kelas`, `k`.`sub_kls`) AS `kelas`
                         ,s.`nama`,mp.`matapelajaran`,n.`nilai` FROM
                         nilai n JOIN matapelajaran_guru mg ON n.`id_matapelajaran`=mg.`id_matapelajaran_guru`
