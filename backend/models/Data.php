@@ -27,7 +27,7 @@ class Data {
 		$array = $model->queryAll();
 
 		if (!empty($array[0])) {
-			return $array[0];
+			return $array[0];	
 		} else {
 			return false;
 		}
@@ -224,7 +224,7 @@ class Data {
 		);
 		return $listData;
 	}
-	public static function nis() {
+	public static function nis()
 
 		$connection = \Yii::$app->db;
 		$nip = self::nip_guru();
@@ -234,9 +234,13 @@ class Data {
 		// 		matapelajaran_guru mg JOIN matapelajaran m ON mg.`id_matapelajaran`=m.`id_matapelajaran`";
 		// } else {
 		$query = "SELECT * FROM
-					siswa s left join kelas k on s.id_kelas=k.id_kelas
-					left join matapelajaran_guru mg on k.id_kelas=mg.id_kelas
-					where mg.nip='$nip'";
+					siswa s where s.id_kelas in (
+						select id_kelas from matapelajaran_guru mg join guru g on mg.nip=g.nip 
+						where g.nip='$nip'
+					)"; 
+					// left join kelas k on s.id_kelas=k.id_kelas
+					// left join matapelajaran_guru mg on k.id_kelas=mg.id_kelas
+					// where mg.nip='$nip'";
 		// }
 
 		$model = $connection->createCommand($query);
