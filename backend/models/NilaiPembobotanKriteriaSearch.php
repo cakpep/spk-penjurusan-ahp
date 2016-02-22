@@ -7,6 +7,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\data\SqlDataProvider;
+use yii\web\NotFoundHttpException;
 
 /**
  * NilaiPembobotanKriteriaSearch represents the model behind the search form about `app\models\Nilai`.
@@ -95,11 +96,19 @@ class NilaiPembobotanKriteriaSearch extends NilaiPembobotanKriteria {
 	public function sqlLaporan() {
 		$username = Yii::$app->user->identity->username;
 		$connection = \Yii::$app->db;
-		$query = "SELECT  *  FROM siswa where email='$username';";
+		if (strtolower(Yii::$app->user->identity->level) == 'siswa') {
+			$query = "SELECT  *  FROM siswa where email='$username';";
+		}
+		if (strtolower(Yii::$app->user->identity->level) == 'guru') {
+			$nip = Data::nip_guru();
+			$query = "SELECT  *  FROM matapelajaran_guru where nip='$nip';";
+		}
 		$model = $connection->createCommand($query);
 		$data = $model->queryAll();
 
-		$query = "SELECT
+		if (isset($data[0]['id_kelas'])) {
+
+			$query = "SELECT
                 nis,nama,kelas,minat,psikotes,
                 -- group_concat(penjurusan) as penjurusan,
                 group_concat(penjurusan) as penjurusan,
@@ -110,11 +119,14 @@ class NilaiPembobotanKriteriaSearch extends NilaiPembobotanKriteria {
                  group_concat(penjurusan,'=',(bobot_nilai+bobot_minat+bobot_psikotes)) AS keputusan
              FROM nilai_pembobotan_kriteria where id_kelas=" . $data[0]['id_kelas'] . " group by nis ORDER BY penjurusan  DESC";
 
-		$dataProvider = new SqlDataProvider([
-			'sql' => $query,
-			// 'params' => [':tanggal' => $tanggal],
-		]);
-		return $dataProvider;
+			$dataProvider = new SqlDataProvider([
+				'sql' => $query,
+				// 'params' => [':tanggal' => $tanggal],
+			]);
+			return $dataProvider;
+		} else {
+			throw new NotFoundHttpException('Guru Belum Diberikan Akses Ke kelas.');
+		}
 	}
 
 	public function cariNilaiMax($nis) {
