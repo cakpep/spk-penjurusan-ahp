@@ -19,6 +19,20 @@ class Data {
 		}
 	}
 
+	public static function isWaliKelas() {
+		$connection = \Yii::$app->db;
+		$id = Yii::$app->user->identity->id;
+		$query = "SELECT nip FROM guru g WHERE  g.`wali_kelas`=1 and g.`email` IN (SELECT email FROM user WHERE id=$id AND LEVEL='guru')";
+		$model = $connection->createCommand($query);
+		$array = $model->queryAll();
+
+		if (!empty($array[0])) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public static function nis_siswa() {
 		$connection = \Yii::$app->db;
 		$id = Yii::$app->user->identity->id;
