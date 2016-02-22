@@ -33,7 +33,7 @@ if ($level == 'admin') {
           <ul class="list-group">
           <li class="list-group-item"><div class = 'text-center'><b>MENU GURU</b></div></li>
           <li class="list-group-item"><?=Html::a('HOME', ['/site'], ['class' => 'btn btn-sm btn-primary btn-block'])?></li>
-          <li class="list-group-item"><?=Html::a('PENGAMPU', ['/matapelajaran-guru'], ['class' => 'btn btn-sm btn-primary btn-block'])?></li>
+          <!-- <li class="list-group-item"><?=Html::a('PENGAMPU', ['/matapelajaran-guru'], ['class' => 'btn btn-sm btn-primary btn-block'])?></li> -->
           <li class="list-group-item"><?=Html::a('NILAI', ['/nilai'], ['class' => 'btn btn-sm btn-primary btn-block'])?></li>
           <li class="list-group-item"><?=Html::a('BERITA', ['/berita'], ['class' => 'btn btn-sm btn-primary btn-block'])?></li>
           <?php if (\app\models\Data::isWaliKelas()) {?>

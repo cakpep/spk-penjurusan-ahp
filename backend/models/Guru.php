@@ -41,7 +41,7 @@ class Guru extends \yii\db\ActiveRecord {
 		return [
 			[['nip', 'password', 'nama', 'alamat', 'agama', 'email', 'jns_kelamin', 'tempat_lahir', 'tgl_lahir', 'no_telp'], 'required'],
 			[['alamat', 'jns_kelamin'], 'string'],
-			[['wali_kelas', 'tgl_lahir'], 'safe'],
+			[['wali_kelas', 'id_kelas', 'tgl_lahir'], 'safe'],
 			[['email'], 'email'],
 			[['nip', 'tempat_lahir'], 'string', 'max' => 20],
 			[['password', 'agama'], 'string', 'max' => 10],
@@ -61,6 +61,7 @@ class Guru extends \yii\db\ActiveRecord {
 			'password' => 'Password',
 			'nama' => 'Nama',
 			'wali_kelas' => 'Wali Kelas',
+			'id_kelas' => 'Kelas',
 			'alamat' => 'Alamat',
 			'agama' => 'Agama',
 			'email' => 'Email',

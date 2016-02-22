@@ -35,7 +35,34 @@ echo $form->field($model, 'wali_kelas')->widget(Select2::classname(), [
 	'pluginOptions' => [
 		'allowClear' => true,
 	],
-])->label('Wali Kelas'); ?>
+	'pluginEvents' => [
+		"select2:select" => "function() {
+            console.log($(this).val());
+            if($(this).val()==1){
+                $('#id_kelas').show();
+            }else{
+                $('#id_kelas').hide();
+            }
+        }",
+	],
+])->label('Wali Kelas');
+
+if ($model->wali_kelas) {
+	echo '<div id="id_kelas">';
+} else {
+	echo '<div id="id_kelas" style="display:none">';
+}
+?>
+        <?php
+echo $form->field($model, 'id_kelas')->widget(Select2::classname(), [
+	'data' => \app\models\Data::kelas(),
+	'language' => 'id',
+	'options' => ['placeholder' => 'Pilih...'],
+	'pluginOptions' => [
+		'allowClear' => true,
+	],
+])->label('Pilih Kelas'); ?>
+</div>
         <?php
 // Normal select with ActiveForm & model
 echo $form->field($model, 'agama')->widget(Select2::classname(), [
