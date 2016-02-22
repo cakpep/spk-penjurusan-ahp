@@ -234,7 +234,7 @@ class Data {
 		// } else {
 		$query = "SELECT * FROM
 					siswa s where s.id_kelas in (
-						select id_kelas from matapelajaran_guru mg join guru g on mg.nip=g.nip
+						select mg.id_kelas from matapelajaran_guru mg join guru g on mg.nip=g.nip
 						where g.nip='$nip'
 					)";
 		// left join kelas k on s.id_kelas=k.id_kelas
