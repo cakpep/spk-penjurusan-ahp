@@ -227,20 +227,17 @@ class Data {
 	public static function nis() {
 		$connection = \Yii::$app->db;
 		$nip = self::nip_guru();
-		// if (strtolower(Yii::$app->user->identity->level) == 'admin') {
-		// 	$query = "SELECT mg.`id_matapelajaran_guru` AS id ,m.`matapelajaran` AS mapel
-		// 		FROM
-		// 		matapelajaran_guru mg JOIN matapelajaran m ON mg.`id_matapelajaran`=m.`id_matapelajaran`";
-		// } else {
-		$query = "SELECT * FROM
-					siswa s where s.id_kelas in (
-						select mg.id_kelas from matapelajaran_guru mg join guru g on mg.nip=g.nip
-						where g.nip='$nip'
-					)";
-		// left join kelas k on s.id_kelas=k.id_kelas
-		// left join matapelajaran_guru mg on k.id_kelas=mg.id_kelas
-		// where mg.nip='$nip'";
-		// }
+		$walikelas = self::isWaliKelas();
+		if ($walikelas) {
+			$query = "SELECT * FROM siswa s where s.id_kelas in (".$walikelas['id_kelas'].")";
+		}else{
+			$query = "SELECT * FROM
+						siswa s where s.id_kelas in (
+							select mg.id_kelas from matapelajaran_guru mg join guru g on mg.nip=g.nip
+							where g.nip='$nip')";
+		}
+
+		}
 
 		$model = $connection->createCommand($query);
 		$array = $model->queryAll();
