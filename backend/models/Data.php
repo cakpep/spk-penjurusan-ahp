@@ -231,10 +231,15 @@ class Data {
 		if ($walikelas) {
 			$query = "SELECT * FROM siswa s where s.id_kelas in (" . $walikelas['id_kelas'] . ")";
 		} else {
-			$query = "SELECT * FROM
-						siswa s where s.id_kelas in (
-							select mg.id_kelas from matapelajaran_guru mg join guru g on mg.nip=g.nip
-							where g.nip='$nip')";
+			$query = "SELECT s.nama,s.nis,n.* FROM siswa s join nilai n on s.nis
+						where n.id_matapelajaran
+						in
+						( select mg.id_matapelajaran_guru
+							from
+							guru g join matapelajaran_guru mg
+							on g.nip=mg.nip
+						 	where nip=='$nip'
+						 )";
 		}
 
 		$model = $connection->createCommand($query);
