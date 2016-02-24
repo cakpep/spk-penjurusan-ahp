@@ -228,29 +228,32 @@ class Data {
 		$connection = \Yii::$app->db;
 		$nip = self::nip_guru();
 		$walikelas = self::isWaliKelas();
-		// if ($walikelas) {
-		// 	$query = "SELECT * FROM siswa s where s.id_kelas in (" . $walikelas['id_kelas'] . ")";
-		// } else {
-		// 	$query = "SELECT s.nama,s.nis,n.* FROM siswa s join nilai n on s.nis
-		// 				where n.id_matapelajaran
-		// 				in
-		// 				( select mg.id_matapelajaran_guru
-		// 					from
-		// 					guru g join matapelajaran_guru mg
-		// 					on g.nip=mg.nip
-		// 				 	where g.nip='$nip'
-		// 				 )";
-		// }
-		$searchModel = new NilaiSearch();
-		// if (Yii::$app->user->identity->level == 'guru') {
-		$dataProvider = $searchModel->sqlLaporanNilai();
-		// } else {
-		// $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-		// }
+		if ($walikelas) {
+			//$query = "SELECT * FROM siswa s where s.id_kelas in (" . $walikelas['id_kelas'] . ")";
+			$query = "SELECT n.`id_nilai`,n.`nis`,s.`id_kelas` ,concat(`k`.`kelas`, `k`.`sub_kls`) AS `kelas`
+                        ,s.`nama`,mp.`matapelajaran`,n.`nilai` FROM
+                        nilai n JOIN matapelajaran_guru mg ON n.`id_matapelajaran`=mg.`id_matapelajaran_guru`
+                        JOIN guru g ON mg.nip=g.`nip`
+                        JOIN siswa s ON s.`nis`=n.`nis`
+                        JOIN matapelajaran mp ON mp.`id_matapelajaran`=mg.`id_matapelajaran`
+                        join kelas k on k.id_kelas=s.id_kelas
+                        WHERE k.id_kelas=" . $walikelas['id_kelas'];
 
-		// $model = $connection->createCommand($query);
-		// $array = $model->queryAll();
-		$data = ArrayHelper::map($dataProvider, 'nis', 'nama');
+		} else {
+			$query = "SELECT s.nama,s.nis,n.* FROM siswa s join nilai n on s.nis
+						where n.id_matapelajaran
+						in
+						( select mg.id_matapelajaran_guru
+							from
+							guru g join matapelajaran_guru mg
+							on g.nip=mg.nip
+						 	where g.nip='$nip'
+						 )";
+		}
+
+		$model = $connection->createCommand($query);
+		$array = $model->queryAll();
+		$data = ArrayHelper::map($array, 'nis', 'nama');
 		return $data;
 
 		// $listData = ArrayHelper::map(Siswa::find()->all(), 'nis', 'nama');
