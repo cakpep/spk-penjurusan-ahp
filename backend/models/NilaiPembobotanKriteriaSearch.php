@@ -105,8 +105,15 @@ class NilaiPembobotanKriteriaSearch extends NilaiPembobotanKriteria {
 		}
 		$model = $connection->createCommand($query);
 		$data = $model->queryAll();
+		$idkelas = null;
+		$walikelas = Data::isWaliKelas();
+		if ($walikelas) {
+			$idkelas = $walikelas->id_kelas;
+		} else {
+			$idkelas = $data[0]['id_kelas'];
+		}
 
-		if (isset($data[0]['id_kelas'])) {
+		if ($idkelas) {
 
 			$query = "SELECT
                 nis,nama,kelas,minat,psikotes,tahun_ajaran,
@@ -117,7 +124,7 @@ class NilaiPembobotanKriteriaSearch extends NilaiPembobotanKriteria {
                  concat(minat,'<br>',bobot_psikotes) as nilai_bobot_psikotes,
                  group_concat((bobot_nilai+bobot_minat+bobot_psikotes)) AS total,
                  group_concat(penjurusan,'=',(bobot_nilai+bobot_minat+bobot_psikotes)) AS keputusan
-             FROM nilai_pembobotan_kriteria where id_kelas=" . $data[0]['id_kelas'] . " group by nis ORDER BY nis,penjurusan  DESC";
+             FROM nilai_pembobotan_kriteria where id_kelas=" . $idkelas . " group by nis ORDER BY nis,penjurusan  DESC";
 
 			$dataProvider = new SqlDataProvider([
 				'sql' => $query,
