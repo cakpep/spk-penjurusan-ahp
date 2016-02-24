@@ -108,7 +108,7 @@ class NilaiPembobotanKriteriaSearch extends NilaiPembobotanKriteria {
 		$idkelas = null;
 		$walikelas = Data::isWaliKelas();
 		if ($walikelas) {
-			$idkelas = $walikelas->id_kelas;
+			$idkelas = $walikelas['id_kelas'];
 		} else {
 			$idkelas = $data[0]['id_kelas'];
 		}
