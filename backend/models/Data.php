@@ -228,23 +228,29 @@ class Data {
 		$connection = \Yii::$app->db;
 		$nip = self::nip_guru();
 		$walikelas = self::isWaliKelas();
-		if ($walikelas) {
-			$query = "SELECT * FROM siswa s where s.id_kelas in (" . $walikelas['id_kelas'] . ")";
-		} else {
-			$query = "SELECT s.nama,s.nis,n.* FROM siswa s join nilai n on s.nis
-						where n.id_matapelajaran
-						in
-						( select mg.id_matapelajaran_guru
-							from
-							guru g join matapelajaran_guru mg
-							on g.nip=mg.nip
-						 	where g.nip='$nip'
-						 )";
-		}
+		// if ($walikelas) {
+		// 	$query = "SELECT * FROM siswa s where s.id_kelas in (" . $walikelas['id_kelas'] . ")";
+		// } else {
+		// 	$query = "SELECT s.nama,s.nis,n.* FROM siswa s join nilai n on s.nis
+		// 				where n.id_matapelajaran
+		// 				in
+		// 				( select mg.id_matapelajaran_guru
+		// 					from
+		// 					guru g join matapelajaran_guru mg
+		// 					on g.nip=mg.nip
+		// 				 	where g.nip='$nip'
+		// 				 )";
+		// }
+		$searchModel = new NilaiSearch();
+		// if (Yii::$app->user->identity->level == 'guru') {
+		$dataProvider = $searchModel->sqlLaporanNilai();
+		// } else {
+		// $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		// }
 
-		$model = $connection->createCommand($query);
-		$array = $model->queryAll();
-		$data = ArrayHelper::map($array, 'nis', 'nama');
+		// $model = $connection->createCommand($query);
+		// $array = $model->queryAll();
+		$data = ArrayHelper::map($dataProvider, 'nis', 'nama');
 		return $data;
 
 		// $listData = ArrayHelper::map(Siswa::find()->all(), 'nis', 'nama');
