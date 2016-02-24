@@ -238,7 +238,7 @@ class Data {
 							from
 							guru g join matapelajaran_guru mg
 							on g.nip=mg.nip
-						 	where nip='$nip'
+						 	where g.nip='$nip'
 						 )";
 		}
 
