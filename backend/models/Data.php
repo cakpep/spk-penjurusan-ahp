@@ -80,6 +80,8 @@ class Data {
 	public static function matapelajaranGuru() {
 		$connection = \Yii::$app->db;
 		$nip = self::nip_guru();
+		$walikelas = self::isWaliKelas();
+		// if () {
 		if (strtolower(Yii::$app->user->identity->level) == 'admin') {
 			$query = "SELECT mg.`id_matapelajaran_guru` AS id ,m.`matapelajaran` AS mapel
 				FROM
@@ -224,23 +226,49 @@ class Data {
 		);
 		return $listData;
 	}
+
 	public static function nis() {
 		$connection = \Yii::$app->db;
 		$nip = self::nip_guru();
 		$walikelas = self::isWaliKelas();
-		if ($walikelas) {
-			//$query = "SELECT * FROM siswa s where s.id_kelas in (" . $walikelas['id_kelas'] . ")";
-			$query = "SELECT n.`id_nilai`,n.`nis`,s.`id_kelas` ,concat(`k`.`kelas`, `k`.`sub_kls`) AS `kelas`
-                        ,s.`nama`,mp.`matapelajaran`,n.`nilai` FROM
-                        nilai n JOIN matapelajaran_guru mg ON n.`id_matapelajaran`=mg.`id_matapelajaran_guru`
-                        JOIN guru g ON mg.nip=g.`nip`
-                        JOIN siswa s ON s.`nis`=n.`nis`
-                        JOIN matapelajaran mp ON mp.`id_matapelajaran`=mg.`id_matapelajaran`
-                        join kelas k on k.id_kelas=s.id_kelas
-                        WHERE k.id_kelas=" . $walikelas['id_kelas'];
+		if ($walikelas['id_kelas']) {
+
+			$query = "SELECT nis,nama FROM siswa s where s.id_kelas in (" . $walikelas['id_kelas'] . ")";
+			$model = $connection->createCommand($query);
+			$array = $model->queryAll();
+
+			//cek apakah wali kelas juga guru
+			$guru = "SELECT nip FROM matapelajaran_guru where nip=$nip";
+			$model_guru = $connection->createCommand($guru);
+			$isGuru = $model_guru->queryAll();
+			if (!empty($isGuru)) {
+				$querys = " SELECT s.nis,s.nama FROM siswa s join nilai n on s.nis=n.nis where n.id_matapelajaran in
+					(
+					SELECT mg.id_matapelajaran_guru
+					FROM
+					matapelajaran_guru mg JOIN matapelajaran m ON mg.`id_matapelajaran`=m.`id_matapelajaran`
+					WHERE mg.`nip`='$nip');";
+				$models = $connection->createCommand($querys);
+				$array1 = $models->queryAll();
+				$array3 = array_merge($array, $array1);
+				$array = $array3;
+			}
+
+		} elseif (empty($walikelas['id_kelas'])) {
+			$query = "SELECT s.nama,s.nis FROM siswa s join nilai n on s.nis
+							where n.id_matapelajaran
+							in
+							( select mg.id_matapelajaran_guru
+								from
+								guru g join matapelajaran_guru mg
+								on g.nip=mg.nip
+							 	where g.nip='$nip'
+							 )";
+			$model = $connection->createCommand($query);
+			$array = $model->queryAll();
 
 		} else {
-			$query = "SELECT s.nama,s.nis,n.* FROM siswa s join nilai n on s.nis
+			$query = "SELECT s.nama,s.nis FROM siswa s join nilai n on s.nis
 						where n.id_matapelajaran
 						in
 						( select mg.id_matapelajaran_guru
@@ -249,10 +277,16 @@ class Data {
 							on g.nip=mg.nip
 						 	where g.nip='$nip'
 						 )";
+			$model = $connection->createCommand($query);
+			$array = $model->queryAll();
+
 		}
 
-		$model = $connection->createCommand($query);
-		$array = $model->queryAll();
+		// echo '<pre>';
+		// print_r($array);
+		// die();
+		// // // echo '<pre>';
+		// print_r($array);die();
 		$data = ArrayHelper::map($array, 'nis', 'nama');
 		return $data;
 

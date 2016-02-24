@@ -24,7 +24,6 @@ if ($level == 'admin') {
           <li class="list-group-item"><?=Html::a('BERITA', ['/berita'], ['class' => 'btn btn-sm btn-primary btn-block'])?></li>
           <li class="list-group-item"><?=Html::a('METODE', ['/kriteria/metode'], ['class' => 'btn btn-sm btn-primary btn-block'])?></li>
           <li class="list-group-item"><?=Html::a('KRITERIA', ['/kriteria'], ['class' => 'btn btn-sm btn-primary btn-block'])?></li>
-          <li class="list-group-item"><?=Html::a('PENJURUSAN', ['/hasil-pembobotan'], ['class' => 'btn btn-sm btn-primary btn-block'])?></li>
         </ul>
 
       <?php } elseif ($level == 'guru') {

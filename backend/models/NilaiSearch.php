@@ -79,7 +79,7 @@ class NilaiSearch extends Nilai {
 			throw new NotFoundHttpException('Maaf Anda Tidak Diizinkan untuk mengakses halaman ini.');
 		}
 		$query = "SELECT n.`id_nilai`,n.`nis`,s.`id_kelas` ,concat(`k`.`kelas`, `k`.`sub_kls`) AS `kelas`
-                        ,s.`nama`,mp.`matapelajaran`,n.`nilai` FROM
+                        ,s.`nama`,mp.`matapelajaran`,n.`nilai`,n.tahun_ajaran FROM
                         nilai n JOIN matapelajaran_guru mg ON n.`id_matapelajaran`=mg.`id_matapelajaran_guru`
                         JOIN guru g ON mg.nip=g.`nip`
                         JOIN siswa s ON s.`nis`=n.`nis`

@@ -109,7 +109,7 @@ class NilaiPembobotanKriteriaSearch extends NilaiPembobotanKriteria {
 		if (isset($data[0]['id_kelas'])) {
 
 			$query = "SELECT
-                nis,nama,kelas,minat,psikotes,
+                nis,nama,kelas,minat,psikotes,tahun_ajaran,
                 -- group_concat(penjurusan) as penjurusan,
                 group_concat(penjurusan) as penjurusan,
                  group_concat(bobot_nilai) as nilai_bobot,

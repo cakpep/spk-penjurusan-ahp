@@ -6,7 +6,6 @@ use app\models\Nilai;
 use app\models\NilaiSearch;
 use Yii;
 use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -25,13 +24,6 @@ class NilaiController extends Controller {
 						'allow' => true,
 						'roles' => ['@'],
 					],
-				],
-			],
-
-			'verbs' => [
-				'class' => VerbFilter::className(),
-				'actions' => [
-					'delete' => ['post'],
 				],
 			],
 		];

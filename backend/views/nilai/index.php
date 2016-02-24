@@ -34,6 +34,7 @@ if (Yii::$app->user->identity->level == 'guru') {
 			'kelas',
 			'matapelajaran',
 			'nilai',
+			'tahun_ajaran',
 			[
 				'class' => 'yii\grid\ActionColumn',
 				'header' => 'Actions',
@@ -90,7 +91,13 @@ if (Yii::$app->user->identity->level == 'guru') {
 					return $model->nilai;
 				},
 			],
-
+			[
+				'attribute' => 'tahun_ajaran',
+				'format' => 'raw',
+				'value' => function ($model) {
+					return $model->tahun_ajaran;
+				},
+			],
 			// [
 			//     'class' => 'kartik\grid\EditableColumn',
 			//     'attribute'=> 'nilai',
